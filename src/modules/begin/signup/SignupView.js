@@ -115,7 +115,7 @@ class SignupView extends Component {
         </TouchableOpacity>
         <TouchableOpacity
           style={[GlobalStyles.buttonTransparent, {marginTop: 8}]}
-          onPress={() => this.props.navigate({routeName:'Login'})}>
+          onPress={() => this.props.navigation.navigate({routeName:'Login'})}>
           <Text style={GlobalStyles.buttonTransparentText}>Already have an account? Login</Text>
           <Ionicon style={GlobalStyles.buttonTransparentIcon} name='ios-arrow-forward'/>
         </TouchableOpacity>
@@ -162,7 +162,7 @@ class SignupView extends Component {
         if(response.status) {
           tempUser.password = password1;
           tempUser.referral = referral;
-          this.props.navigate({routeName:'VerifyOTP', params:{tempUser: tempUser}});
+          this.props.navigation.navigate({routeName:'VerifyOTP', params:{tempUser: tempUser}});
         }
     }))
   }

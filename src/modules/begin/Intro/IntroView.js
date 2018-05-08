@@ -126,7 +126,7 @@ class IntroView extends Component {
               inactiveDotOpacity={0.5}
               inactiveDotScale={0.6} />
           {activeSlide == 2 ? (
-            <TouchableOpacity style={styles.getStartedButton} onPress={() => this.props.navigate({routeName:'Landing'})}>
+            <TouchableOpacity style={styles.getStartedButton} onPress={() => this.props.navigation.navigate({routeName:'Landing'})}>
               <Text style={styles.getStartedText}>Get Started</Text>
               <Ionicon style={styles.getStartedButtonIcon} name='ios-arrow-forward'/>
             </TouchableOpacity>
@@ -142,7 +142,7 @@ class IntroView extends Component {
       console.log("GET_REMEMBER_ME_STATUS_RESPONSE", response);
       if(response.status && response.data === 'yes') {
         this.setState({isReady: true, pageVisited: true}, () => {
-          //Actions.main();
+          this.props.navigation.navigate({routeName:'Home'})
         });
       } else {
         this.props.dispatch(UserActions.resetUserData())
@@ -151,7 +151,7 @@ class IntroView extends Component {
         Utils.isIntroPageVisited().then(isVisited => {
           console.log("isIntroPageVisited", isVisited);
           if(isVisited === 'yes') {
-            this.props.navigate({routeName:'Landing'})
+            this.props.navigation.navigate('Landing')
             this.setState({isReady: true, pageVisited: true});
           }
           else {

@@ -1,16 +1,14 @@
-import React, {PropTypes, Component} from 'react';
+import React, {Component} from 'react';
 import Permissions from 'react-native-permissions'
 import {
   Text,
   View,
-  TextInput,
   TouchableOpacity,
   StyleSheet,
   Keyboard,
   TouchableWithoutFeedback
 } from 'react-native';
 import GlobalStyles from '../../../styles/globalStyles';
-import * as Utils from '../../../utils/utils'
 import * as ViewUtils from '../../../utils/viewUtils';
 import * as UserActions from '../../../redux/user/UserActions';
 import ChildPageHeader from '../../../components/headers/childPageHeader';
@@ -18,7 +16,7 @@ import PageHeader from '../../../components/custom-views/pageHeader';
 import CustomTextInput from '../../../components/custom-views/textInput';
 import AlertBar from '../../../components/alert-bar/alertBar';
 import Loader from '../../../components/modals/loader/loader';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 // import GATracker from '../../../services/ga'
 
 class VerifyOtpView extends Component {
@@ -145,11 +143,15 @@ class VerifyOtpView extends Component {
     if(action == 'login') {
       Permissions.check('location')
       .then(locationPermission => {
-        if(locationPermission === 'authorized') Actions.main()
-        else Actions.useLocation()
-      }) 
+        if(locationPermission === 'authorized') {
+          this.props.navigation.navigate({routeName: 'Home'});
+        }
+        else {
+          this.props.navigation.navigate({routeName: 'UseLocation'})
+        }
+      });
     } else {
-      Actions.signupProfile()
+      this.props.navigation.navigate({routeName:'SignupProfile'})
     }
   }
 

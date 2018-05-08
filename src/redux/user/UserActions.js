@@ -7,14 +7,12 @@ import {
     getMics,
     deleteMic,
     updateMic,
-    facebookUserLogin,
-    facebookUserSignup,
     resetPasswordRequest
   } from '../../services/user';
   
-//   import {
-//     login as facebookLogin
-//   } from '../../services/facebook'
+  import {
+    login as facebookLogin
+  } from '../../services/facebook';
   import * as AuthUtils from '../../utils/authentication'
   
   import * as cloudinary from '../../services/cloudinary';
@@ -120,19 +118,19 @@ import {
   export function facebookLoginRequest(callback) {
     return dispatch => {
       dispatch({type: FACEBOOK_LOGIN_REQUEST});
-    //   return facebookLogin().then(fbResponse => {
-    //     if (callback) {callback({status: true, data: fbResponse});}
-    //     dispatch({
-    //       type: FACEBOOK_LOGIN_SUCCESS,
-    //       payload: fbResponse.profile
-    //     });
-    //   }).catch(fbError => {
-    //     dispatch({
-    //       type: FACEBOOK_LOGIN_FAILURE,
-    //       payload: {message: JSON.stringify({error: fbError})}
-    //     });
-    //     if (callback) {callback({status: false, data: fbError});}
-    //   });
+      return facebookLogin().then(fbResponse => {
+        if (callback) {callback({status: true, data: fbResponse});}
+        dispatch({
+          type: FACEBOOK_LOGIN_SUCCESS,
+          payload: fbResponse.profile
+        });
+      }).catch(fbError => {
+        dispatch({
+          type: FACEBOOK_LOGIN_FAILURE,
+          payload: {message: JSON.stringify({error: fbError})}
+        });
+        if (callback) {callback({status: false, data: fbError});}
+      });
     };
   }
   

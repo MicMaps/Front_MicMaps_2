@@ -150,10 +150,10 @@ class SignupProfileView extends Component {
       Permissions.check('location')
       .then(locationPermission => {
         if(locationPermission === 'authorized'){
-            this.props.navigate({routeName:'Main'})
+            this.props.navigation.navigate({routeName:'Home'})
         } 
         else {
-            this.props.navigate({routeName:'UseLocation'})
+            this.props.navigation.navigate({routeName:'UseLocation'})
         }
       }) 
     }

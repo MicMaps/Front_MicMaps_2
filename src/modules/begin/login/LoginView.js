@@ -101,7 +101,7 @@ class LoginView extends Component {
           <Text style={[GlobalStyles.buttonGreenOutlinedText,
             this.isDataValid() && !loading ? null : GlobalStyles.buttonGreenOutlinedDisabledText]}>LOG IN</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={GlobalStyles.buttonTransparent} onPress={() => this.props.navigate({routeName:'ForgotPassword'})}>
+        <TouchableOpacity style={GlobalStyles.buttonTransparent} onPress={() => this.props.navigation.navigate({routeName:'ForgotPassword'})}>
           <Text style={[GlobalStyles.buttonTransparentText, {marginTop:5, marginBottom: 10}]}>Forgot your password?</Text>
         </TouchableOpacity>
         <TouchableOpacity
@@ -110,7 +110,7 @@ class LoginView extends Component {
           <Text style={GlobalStyles.buttonBlueOutlinedText}>FACEBOOK</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={() => this.props.navigate({routeName:'Signup'})}
+          onPress={() => this.props.navigation.navigate({routeName:'Signup'})}
           style={[GlobalStyles.buttonTransparent, {marginTop:10}]}>
           <Text style={GlobalStyles.buttonTransparentText}>Don't have an account yet? Signup</Text>
           <IoniconsIcon style={GlobalStyles.buttonTransparentIcon} name='ios-arrow-forward' />
@@ -202,10 +202,10 @@ class LoginView extends Component {
     Permissions.check('location')
       .then(locationPermission => {
         if(locationPermission === 'authorized'){
-            this.props.navigate({routeName:'UseLocation'})
+            this.props.navigation.navigate({routeName:'Home'})
         } 
         else {
-            this.props.navigate({routeName:'UseLocation'})
+            this.props.navigation.navigate({routeName:'UseLocation'})
         }
         //console.log('location permissions check response: ', locationPermission)
     })

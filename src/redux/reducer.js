@@ -1,6 +1,5 @@
 import {Map, fromJS} from 'immutable';
 import {loop, combineReducers} from 'redux-loop-symbol-ponyfill';
-import NavigatorStateReducer from '../modules/navigator/NavigatorState';
 import SessionStateReducer, {RESET_STATE} from '../modules/session/SessionState';
 import UserReducer from './user/UserReducer';
 import MicsReducer from './mics/MicsReducer';
@@ -11,7 +10,7 @@ const reducers = {
   // ## Generator Reducers
 
   // Navigator states
-  navigatorState: NavigatorStateReducer,
+  //navigatorState: NavigatorStateReducer,
   user: UserReducer,
   mics: MicsReducer,
   session: SessionStateReducer

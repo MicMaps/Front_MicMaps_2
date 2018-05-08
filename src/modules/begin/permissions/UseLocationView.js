@@ -53,7 +53,7 @@ class UseLocationView extends Component {
         switch(response) {
           case 'authorized':
             this.props.dispatch(UserActions.setUserPermission('location', true))
-            setTimeout(() => this.props.navigate({routeName:'Main'}), 400)
+            setTimeout(() => this.props.navigation.navigate({routeName:'Home'}), 400)
             break;
           case 'undetermined':
             this.requestPermission();
@@ -67,7 +67,7 @@ class UseLocationView extends Component {
   requestPermission() {
     Permissions.request('location').then(response => {
       this.props.dispatch(UserActions.setUserPermission('location', response === 'authorized'))
-      setTimeout(() => this.props.navigate({routeName:'Main'}), 300)
+      setTimeout(() => this.props.navigation.navigate({routeName:'Home'}), 300)
     });
   }
 }

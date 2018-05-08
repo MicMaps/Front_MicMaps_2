@@ -49,7 +49,7 @@ import {
     updateUserProfile,
     getUserMics,
     getOtherUsersMics,
-    deleteUserMic,
+    deleteUserMic
   } from './UserActions';
   import * as Utils from '../../utils/utils'
   

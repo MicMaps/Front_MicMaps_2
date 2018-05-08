@@ -1,5 +1,6 @@
 import Moment from 'moment';
 import {AsyncStorage} from 'react-native';
+import {NavigationActions} from 'react-navigation';
 
 const APP_INTRO_VISITED_KEY = 'MicMapsState:isIntroPageVisited';
 
@@ -157,9 +158,11 @@ export function debounce(func, wait, immediate) {
         func.apply(context, args);
       }
     , wait);
-    if (immediate && !timeout)
+    if (immediate && !timeout) {
       func.apply(context, args);
-    };
+    }
+    return timeout;
+  };
 }
 
 export function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
@@ -174,4 +177,15 @@ export function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
 
 function deg2rad(deg) {
   return deg * (Math.PI / 180)
+}
+
+export function resetNavigation(navigation, index, routesStack = []) {
+  const actions = routesStack.map((route) => {
+    return NavigationActions.navigate(route);
+  });
+  const resetAction = NavigationActions.reset({
+    index: index,
+    actions: actions
+  });
+  navigation.dispatch(resetAction);
 }

@@ -7,12 +7,12 @@ import {
   StyleSheet,
   Alert
 } from 'react-native';
-import Ionicon from 'react-native-vector-icons/Ionicons'
-import AlertBar from '../../../components/alert-bar/alertBar'
-import * as UserActions from '../../../redux/user/UserActions'
-import * as ViewUtils from '../../../utils/viewUtils'
-import globalStyles from '../../../styles/globalStyles'
-import MicMapsLogo from '../../../../images/MicMaps_ICON.png'
+import Ionicon from 'react-native-vector-icons/Ionicons';
+import AlertBar from '../../../components/alert-bar/alertBar';
+import * as UserActions from '../../../redux/user/UserActions';
+import * as ViewUtils from '../../../utils/viewUtils';
+import globalStyles from '../../../styles/globalStyles';
+import MicMapsLogo from '../../../../images/MicMaps_ICON.png';
 //import GATracker from '../../../services/ga'
 
 class LandingView extends Component {
@@ -67,13 +67,13 @@ class LandingView extends Component {
           <TouchableOpacity
             style={[globalStyles.button, globalStyles.buttonWhiteSolid]}
             activeOpacity={0.5}
-            onPress={() => this.props.navigate({routeName:'Signup'})}>
+            onPress={() => this.props.navigation.navigate({routeName:'Signup'})}>
             <Text style={globalStyles.buttonWhiteSolidText}>SIGNUP WITH PHONE NUMBER</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={[globalStyles.button, globalStyles.buttonTransparent]}
             activeOpacity={0.5}
-            onPress={() => this.props.navigate({routeName:'Login'})}>
+            onPress={() => this.props.navigation.navigate({routeName:'Login'})}>
             <Text style={styles.linkText}>I already have an account</Text>
             <Ionicon style={styles.linkIcon} name='ios-arrow-forward'/>
           </TouchableOpacity>
@@ -113,7 +113,9 @@ class LandingView extends Component {
     this.props.dispatch(UserActions.facebookUserSignupRequest(
       fbUser, (response) => {
       //console.log('FACEBOOK_USER_SIGNUP_RESPONSE', response);
-      if(response.status) Actions.main();
+      if(response.status) {
+        this.props.navigation.navigate({routeName:'Home'})
+      }
       else {
         let error = response.data.message ? JSON.parse(response.data.message).error == 'Error Already Exists'?'An account already exists with this facebook account. Try logging in.': JSON.parse(response.data.message).error: 'Something went wrong, try again later!';
         // Alert.alert('Facebook Login', error)
@@ -124,7 +126,7 @@ class LandingView extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex:1,
+    flex: 1,
     flexDirection: 'column',
     backgroundColor: ViewUtils.COLOR_THEME_GREEN
   },

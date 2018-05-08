@@ -1,13 +1,16 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {View, StyleSheet, StatusBar, ActivityIndicator, BackHandler} from 'react-native';
-import NavigatorViewContainer from './navigator/NavigatorViewContainer';
+import {View, StyleSheet, StatusBar, ActivityIndicator} from 'react-native';
+import NavigatorView from './navigator/NavigatorView';
 import * as snapshotUtil from '../utils/snapshot';
 import * as SessionStateActions from '../modules/session/SessionState';
 import store from '../redux/store';
 import DeveloperMenu from '../components/DeveloperMenu';
-
-import {NavigationActions} from 'react-navigation';
+import {
+  setCustomText,
+  setCustomTextInput
+} from 'react-native-global-props';
+import * as GlobalStyles from '../styles/globalStyles'
 
 class AppView extends Component {
   static displayName = 'AppView';
@@ -16,25 +19,6 @@ class AppView extends Component {
     isReady: PropTypes.bool.isRequired,
     dispatch: PropTypes.func.isRequired
   };
-
-  navigateBack() {
-    const navigatorState = store.getState().get('navigatorState');
-
-    const currentStackScreen = navigatorState.get('index');
-    const currentTab = navigatorState.getIn(['routes', 0, 'index']);
-
-    if (currentTab !== 0 || currentStackScreen !== 0) {
-      store.dispatch(NavigationActions.back());
-      return true;
-    }
-
-    // otherwise let OS handle the back button action
-    return false;
-  }
-
-  componentWillMount() {
-    BackHandler.addEventListener('hardwareBackPress', this.navigateBack);
-  }
 
   componentDidMount() {
     snapshotUtil.resetSnapshot()
@@ -51,6 +35,8 @@ class AppView extends Component {
           snapshotUtil.saveSnapshot(store.getState());
         });
       });
+    setCustomText(GlobalStyles.TextProps);
+    setCustomTextInput(GlobalStyles.TextInputProps);
   }
 
   render() {
@@ -65,7 +51,7 @@ class AppView extends Component {
     return (
       <View style={{flex: 1}}>
         <StatusBar backgroundColor='#455a64' barStyle='light-content' />
-        <NavigatorViewContainer />
+        <NavigatorView />
         {__DEV__ && <DeveloperMenu />}
       </View>
     );

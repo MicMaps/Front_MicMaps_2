@@ -1,11 +1,16 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {View, StyleSheet, StatusBar, ActivityIndicator} from 'react-native';
-import NavigatorViewContainer from './navigator/NavigatorViewContainer';
+import NavigatorView from './navigator/NavigatorView';
 import * as snapshotUtil from '../utils/snapshot';
 import * as SessionStateActions from '../modules/session/SessionState';
 import store from '../redux/store';
 import DeveloperMenu from '../components/DeveloperMenu';
+import {
+  setCustomText,
+  setCustomTextInput
+} from 'react-native-global-props';
+import * as GlobalStyles from '../styles/globalStyles'
 
 class AppView extends Component {
   static displayName = 'AppView';
@@ -30,6 +35,8 @@ class AppView extends Component {
           snapshotUtil.saveSnapshot(store.getState());
         });
       });
+    setCustomText(GlobalStyles.TextProps);
+    setCustomTextInput(GlobalStyles.TextInputProps);
   }
 
   render() {
@@ -44,7 +51,7 @@ class AppView extends Component {
     return (
       <View style={{flex: 1}}>
         <StatusBar backgroundColor='#455a64' barStyle='light-content' />
-        <NavigatorViewContainer />
+        <NavigatorView />
         {__DEV__ && <DeveloperMenu />}
       </View>
     );
