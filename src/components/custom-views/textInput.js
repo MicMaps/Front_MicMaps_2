@@ -1,4 +1,4 @@
-import React, {PropTypes, Component} from 'react';
+import React, {Component} from 'react';
 import {
   Text,
   View,
@@ -7,11 +7,9 @@ import {
   StyleSheet,
   Platform
 } from 'react-native';
-import Ionicon from 'react-native-vector-icons/Ionicons'
-import * as ViewUtils from '../../utils/viewUtils'
-import MicMapsLogo from '../../../images/MicMaps_ICON.png'
-import IconCheck from '../../../images/iconCheck.png'
-import IconWrong from '../../../images/iconWrong.png'
+import * as ViewUtils from '../../utils/viewUtils';
+import IconCheck from '../../../images/iconCheck.png';
+import IconWrong from '../../../images/iconWrong.png';
 
 class CustomTextInput extends Component {
 
@@ -24,7 +22,7 @@ class CustomTextInput extends Component {
   }
 
   render() {
-
+    console.log(this.props)
     const {style, textInputProps, label, noValidation, validationStatus, validationMessage} = this.props;
     const {onTouched, onFocused} = this.state;
 
@@ -40,14 +38,14 @@ class CustomTextInput extends Component {
 
     let {onFocus, ...inputProps} = textInputProps ? textInputProps : {};
     //console.log("TEXT_INPUT_VIEW: onfocus", onFocus);
-
+    console.log(TextInput)
     return (
       <View style={[styles.container, style]}>
         <View style={styles.textContainer}>
           <Text style={styles.labelText}>{label}</Text>
         </View>
         <View style={textInputContainerStyles}>
-          <TextInput
+        <TextInput
             style={styles.textInput}
             onFocus={(e) => {
               this.setState({onFocused: true, onTouched: true});

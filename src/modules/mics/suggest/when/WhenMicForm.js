@@ -15,7 +15,7 @@ import PageHeader from '../../../../components/custom-views/pageHeader';
 import DateTimeSelectInput from '../../../../components/custom-views/dateTimeSelectInput';
 import NumberSelectInput from '../../../../components/custom-views/numberSelectInput';
 import OptionSelectInput from '../../../../components/custom-views/optionSelectInput';
-//import GATracker from '../../../../services/ga';
+import GATracker from '../../../../services/ga';
 
 const repeatFrequencyMap = {
   weekly: 'Weekly',
@@ -49,7 +49,7 @@ class WhenMicForm extends Component {
     const {formData} = this.props;
     let micDates = formData && formData.micDays ? formData.micDays : [];
     this.setState({dates: micDates});
-    //GATracker.trackScreenView('Mics Suggest When Screen');
+    GATracker.trackScreenView('Mics Suggest When Screen');
   }
 
   render() {

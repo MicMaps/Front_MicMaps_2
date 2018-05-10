@@ -11,6 +11,10 @@
 
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
+
+@import GoogleMaps;
+@import GooglePlaces;
 
 @implementation AppDelegate
 
@@ -18,7 +22,10 @@
 {
   NSURL *jsCodeLocation;
 
-  jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index" fallbackResource:nil];
+  //  jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index" fallbackResource:nil];
+  jsCodeLocation = [NSURL URLWithString:@"http://192.168.43.84:8081/index.bundle?platform=ios&dev=true"];
+  // jsCodeLocation = [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
+
 
   RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation
                                                       moduleName:@"MicMaps"
@@ -31,7 +38,22 @@
   rootViewController.view = rootView;
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
+  [GMSServices provideAPIKey:@"AIzaSyCpKTIep2KtVIcaCxl0MzCKR5Dh78WKAi4"];
+  [GMSPlacesClient provideAPIKey:@"AIzaSyCpKTIep2KtVIcaCxl0MzCKR5Dh78WKAi4"];
+  [[FBSDKApplicationDelegate sharedInstance] application:application
+                           didFinishLaunchingWithOptions:launchOptions];
+  
   return YES;
+}
+
+- (BOOL)application:(UIApplication *)application
+            openURL:(NSURL *)url
+  sourceApplication:(NSString *)sourceApplication
+         annotation:(id)annotation {
+  return [[FBSDKApplicationDelegate sharedInstance] application:application
+                                                        openURL:url
+                                              sourceApplication:sourceApplication
+                                                     annotation:annotation];
 }
 
 @end

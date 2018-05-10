@@ -3,6 +3,7 @@ package com.micmaps;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.idehub.GoogleAnalyticsBridge.GoogleAnalyticsBridgePackage;
 import com.airbnb.android.react.maps.MapsPackage;
 import com.dmbookpro.ReactNativeAndroidSettings.ReactNativeAndroidSettingsPackage;
 import com.arttitude360.reactnative.rngoogleplaces.RNGooglePlacesPackage;
@@ -43,6 +44,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new GoogleAnalyticsBridgePackage(),
             new MapsPackage(),
             new ReactNativeAndroidSettingsPackage(),
             new RNGooglePlacesPackage(),

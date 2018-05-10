@@ -15,7 +15,7 @@ import * as ViewUtils from '../../utils/viewUtils';
 import * as UserActions from '../../redux/user/UserActions';
 import MicMapsLogo from '../../../images/MicMaps_ICON.png';
 import {NavigationActions} from 'react-navigation';
-// import GATracker from '../../services/ga';
+import GATracker from '../../services/ga';
 
 class UserProfileView extends Component {
   static displayName = 'UserProfileView';
@@ -34,7 +34,7 @@ class UserProfileView extends Component {
 
     const {micOwner} = this.props.navigation.state.params;
     this.props.dispatch(UserActions.getOtherUserMicsRequest(micOwner._id));
-    //GATracker.trackScreenView('Other User Profile Screen')
+    GATracker.trackScreenView('Other User Profile Screen')
   }
 
   render() {

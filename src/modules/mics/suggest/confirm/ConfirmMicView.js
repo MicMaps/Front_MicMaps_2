@@ -22,7 +22,7 @@ import PageHeader from '../../../../components/custom-views/pageHeader';
 import MicInfo from '../../../../components/mics/details/micInfo';
 import Loader from '../../../../components/modals/loader/loader';
 import AlertBar from '../../../../components/alert-bar/alertBar';
-//import GATracker from '../../../../services/ga';
+import GATracker from '../../../../services/ga';
 
 class ConfirmMicView extends Component {
   static displayName = 'ConfirmMicView';
@@ -44,7 +44,7 @@ class ConfirmMicView extends Component {
     if (micInfo) {
         this.setState(micInfo);
     }
-    //GATracker.trackScreenView('Mics Suggest Confirm Screen')
+    GATracker.trackScreenView('Mics Suggest Confirm Screen')
   }
 
   render() {

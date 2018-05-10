@@ -13,7 +13,7 @@ import * as ViewUtils from '../../../../utils/viewUtils';
 import GlobalStyles from '../../../../styles/globalStyles';
 import IconClose from '../../../.././../images/closeIcon2x.png';
 import IconSuccess from '../../../../../images/iconSuccess2x.png';
-//import GATracker from '../../../../services/ga';
+import GATracker from '../../../../services/ga';
 
 class SuggestMicSuccessView extends Component {
   static displayName = 'SuggestMicSuccessView';
@@ -26,7 +26,7 @@ class SuggestMicSuccessView extends Component {
   }
 
   componentDidMount() {
-    //GATracker.trackScreenView('Mics Suggest Success Screen')
+    GATracker.trackScreenView('Mics Suggest Success Screen')
   }
 
   render() {

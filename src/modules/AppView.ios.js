@@ -10,7 +10,7 @@ import {
   setCustomText,
   setCustomTextInput
 } from 'react-native-global-props';
-import * as GlobalStyles from '../styles/globalStyles'
+import * as GlobalStyles from '../styles/globalStyles';
 
 class AppView extends Component {
   static displayName = 'AppView';
@@ -36,7 +36,6 @@ class AppView extends Component {
         });
       });
     setCustomText(GlobalStyles.TextProps);
-    setCustomTextInput(GlobalStyles.TextInputProps);
   }
 
   render() {

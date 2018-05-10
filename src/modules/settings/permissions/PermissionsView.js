@@ -45,7 +45,8 @@ class PermissionsView extends Component {
     return (
       <View style={styles.container}>
         <PermissionsViewHeader
-          onRightButtonPress={() => this.props.navigation.dispatch(NavigationActions.back())} />
+          onRightButtonPress={() => this.props.navigation.dispatch(NavigationActions.back())} 
+          navigation = {this.props.navigation} />
         <PageHeader title={'PERMISSIONS'} />
         <CustomSelectInput
           inputValue={'Location'}

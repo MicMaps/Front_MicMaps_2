@@ -16,7 +16,7 @@ import PageHeader from '../../../components/custom-views/pageHeader';
 import CustomTextInput from '../../../components/custom-views/textInput';
 import AlertBar from '../../../components/alert-bar/alertBar';
 import Loader from '../../../components/modals/loader/loader';
-// import GATracker from '../../../services/ga'
+import GATracker from '../../../services/ga'
 
 class ForgotPasswordView extends Component {
   static displayName = 'ForgotPasswordView';
@@ -38,7 +38,7 @@ class ForgotPasswordView extends Component {
   }
 
   componentDidMount() {
-   // GATracker.trackScreenView('Forgot Password Screen')
+   GATracker.trackScreenView('Forgot Password Screen')
   }
      
 

@@ -14,7 +14,7 @@ import * as Utils from '../../../../utils/utils';
 import * as ViewUtils from '../../../../utils/viewUtils';
 import PageHeader from '../../../../components/custom-views/pageHeader';
 import CustomTextInput from '../../../../components/custom-views/textInput';
-//import GATracker from '../../../../services/ga';
+import GATracker from '../../../../services/ga';
 
 class AboutMicForm extends Component {
   static displayName = 'AboutMicForm';
@@ -29,7 +29,7 @@ class AboutMicForm extends Component {
   }
 
   componentDidMount() {
-    //GATracker.trackScreenView('Mics Suggest Host Info Screen')
+    GATracker.trackScreenView('Mics Suggest Host Info Screen')
   }
 
   render() {

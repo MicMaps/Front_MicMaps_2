@@ -1,4 +1,4 @@
-import React, {PropTypes, Component} from 'react';
+import React, {Component} from 'react';
 import Permissions from 'react-native-permissions';
 import {
   Text,
@@ -6,10 +6,10 @@ import {
   TouchableOpacity,
   StyleSheet
 } from 'react-native';
-import * as ViewUtils from '../../../utils/viewUtils'
-import * as UserActions from '../../../redux/user/UserActions'
-import GlobalStyles from '../../../styles/globalStyles'
-import PageHeader from '../../../components/custom-views/pageHeader'
+import * as ViewUtils from '../../../utils/viewUtils';
+import * as UserActions from '../../../redux/user/UserActions';
+import GlobalStyles from '../../../styles/globalStyles';
+import PageHeader from '../../../components/custom-views/pageHeader';
 
 class UseLocationView extends Component {
   static displayName = 'UseLocationView';

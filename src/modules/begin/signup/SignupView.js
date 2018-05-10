@@ -18,7 +18,7 @@ import * as Utils from '../../../utils/utils';
 import PageHeader from '../../../components/custom-views/pageHeader'
 import CustomTextInput from '../../../components/custom-views/textInput'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-// import GATracker from '../../../services/ga'
+import GATracker from '../../../services/ga'
 
 class SignupView extends Component {
   static displayName = 'SignupView';
@@ -40,7 +40,7 @@ class SignupView extends Component {
   }
 
   componentDidMount() {
-   // GATracker.trackScreenView('Sign up Screen')
+   GATracker.trackScreenView('Sign up Screen')
   }
 
   componentWillUnmount() {

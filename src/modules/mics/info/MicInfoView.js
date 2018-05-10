@@ -17,7 +17,7 @@ import ThumbsUpImage from '../../../../images/thumbsUp.png';
 import ThumbsDownImage from '../../../../images/thumbsDown.png';
 import AlertBar from '../../../components/alert-bar/alertBar';
 import {NavigationActions} from 'react-navigation';
-//import GATracker from '../../../services/ga';
+import GATracker from '../../../services/ga';
 
 class MicsInfoView extends Component {
   static displayName = 'MicsInfoView';
@@ -48,7 +48,7 @@ class MicsInfoView extends Component {
         this.setState({loading: false})
       }));
     }
-    //GATracker.trackScreenView('Mics Detail View Screen')
+    GATracker.trackScreenView('Mics Detail View Screen')
   }
 
   render() {

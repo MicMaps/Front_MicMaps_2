@@ -4,12 +4,10 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
-	<key>CFBundleDisplayName</key>
-	<string>MicMaps</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
-	<string>org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)</string>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -17,29 +15,33 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0</string>
+	<string>2.0.0</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>fb159196017971328</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
 	<string>1</string>
+	<key>FacebookAppID</key>
+	<string>159196017971328</string>
+	<key>FacebookDisplayName</key>
+	<string>MicMaps</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>fbapi</string>
+		<string>fb-messenger-api</string>
+		<string>fbauth2</string>
+		<string>fbshareextension</string>
+	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-	<key>UILaunchStoryboardName</key>
-	<string>LaunchScreen</string>
-	<key>UIRequiredDeviceCapabilities</key>
-	<array>
-		<string>armv7</string>
-	</array>
-	<key>UISupportedInterfaceOrientations</key>
-	<array>
-		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
-	</array>
-	<key>UIViewControllerBasedStatusBarAppearance</key>
-	<false/>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string/>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSExceptionDomains</key>
@@ -49,13 +51,36 @@
 				<key>NSExceptionAllowsInsecureHTTPLoads</key>
 				<true/>
 			</dict>
+			<key>micmaps.com</key>
+			<dict>
+				<key>NSExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+				<key>NSIncludesSubdomains</key>
+				<true/>
+			</dict>
 		</dict>
 	</dict>
+	<key>NSBluetoothPeripheralUsageDescription</key>
+	<string>MicMaps would like access bluetooth.</string>
+	<key>NSCalendarsUsageDescription</key>
+	<string>To set dates for mics while submitting/editing mics.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>To capture image for setting it as  your profile picture.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>To show open mics around your current location.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>To browse photos in your photo library for setting the selected image as your profile image.</string>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>MicMaps would like to access speech recognition.</string>
 	<key>UIAppFonts</key>
 	<array>
+		<string>Dosis-SemiBold.ttf</string>
+		<string>Dosis-Regular.ttf</string>
+		<string>Dosis-Light.ttf</string>
+		<string>Dosis-Medium.ttf</string>
+		<string>Dosis-Bold.ttf</string>
 		<string>Entypo.ttf</string>
 		<string>EvilIcons.ttf</string>
-		<string>Feather.ttf</string>
 		<string>FontAwesome.ttf</string>
 		<string>Foundation.ttf</string>
 		<string>Ionicons.ttf</string>
@@ -64,6 +89,20 @@
 		<string>Octicons.ttf</string>
 		<string>SimpleLineIcons.ttf</string>
 		<string>Zocial.ttf</string>
+		<string>Dosis-ExtraBold.ttf</string>
+		<string>Dosis-ExtraLight.ttf</string>
 	</array>
+	<key>UILaunchStoryboardName</key>
+	<string>LaunchScreen</string>
+	<key>UIRequiredDeviceCapabilities</key>
+	<array>
+		<string>armv7</string>
+	</array>
+	<key>UISupportedInterfaceOrientations</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+	</array>
+	<key>UIViewControllerBasedStatusBarAppearance</key>
+	<false/>
 </dict>
 </plist>

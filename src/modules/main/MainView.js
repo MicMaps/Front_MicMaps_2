@@ -26,7 +26,7 @@ import MicsList from '../../components/mics/list/micsList';
 import Loader from '../../components/modals/loader/loader';
 import AlertBar from '../../components/alert-bar/alertBar';
 import {NavigationActions} from 'react-navigation';
-//import GATracker from '../../services/ga';
+import GATracker from '../../services/ga';
 
 class MainView extends Component {
   static displayName = 'MainView';
@@ -97,10 +97,10 @@ class MainView extends Component {
 
     this.props.dispatch(MicActions.setLoadingStatus(false));
     if (this.state.viewMode == 'map') {
-      // GATracker.trackScreenView('Mics Map Main View Screen')
+      GATracker.trackScreenView('Mics Map Main View Screen')
     }
     if (this.state.viewMode == 'list') {
-      // GATracker.trackScreenView('Mics List Main View Screen')
+      GATracker.trackScreenView('Mics List Main View Screen')
     }
   }
 
@@ -301,7 +301,7 @@ class MainView extends Component {
 
   toggleViewMode() {
     const viewMode = this.state.viewMode === 'map' ? 'list' : 'map' ;
-    //GATracker.trackScreenView('Mics ' + (viewMode == 'map'?'Map':'List') +  ' Main View Screen')
+    GATracker.trackScreenView('Mics ' + (viewMode == 'map'?'Map':'List') +  ' Main View Screen')
     this.setState({viewMode: viewMode, initialRegion: this.currentRegion?this.currentRegion:this.state.initialRegion});
   }
 

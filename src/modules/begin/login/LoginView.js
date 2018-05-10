@@ -1,5 +1,5 @@
 import React, {PropTypes, Component} from 'react';
-import Permissions from 'react-native-permissions'
+import Permissions from 'react-native-permissions';
 import {
   Text,
   View,
@@ -18,7 +18,7 @@ import * as ViewUtils from '../../../utils/viewUtils'
 import * as UserActions from '../../../redux/user/UserActions'
 import GlobalStyles from '../../.././styles/globalStyles'
 import CustomTextInput from '../../../components/custom-views/textInput'
-// import GATracker from '../../../services/ga'
+import GATracker from '../../../services/ga'
 
 
 class LoginView extends Component {
@@ -43,7 +43,7 @@ class LoginView extends Component {
   }
 
   componentDidMount() {
-    // GATracker.trackScreenView('Login Screen')
+    GATracker.trackScreenView('Login Screen')
     this.props.dispatch(UserActions.setLoadingStatus(false))
   }
 

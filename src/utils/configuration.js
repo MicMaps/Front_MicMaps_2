@@ -3,7 +3,8 @@ import {Map} from 'immutable';
 let configuration = Map({
   //API_ROOT: 'http://api.micmaps.com/api',
   API_ROOT: 'http://staging-api.micmaps.com/api',
-  GOOGLE_PLACES_API_KEY: 'AIzaSyABuXCTqrSSWHxrdu7WjhBueTMC2P77R7Y'
+  GOOGLE_PLACES_API_KEY: 'AIzaSyABuXCTqrSSWHxrdu7WjhBueTMC2P77R7Y',
+  GOOGLE_ANALYTICS_TRACKING_ID: 'UA-118416899-1'
 });
 
 

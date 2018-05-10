@@ -9,7 +9,7 @@ import * as EmailUtils from '../../utils/email';
 import * as UserActions from '../../redux/user/UserActions';
 import CustomSelectInput from '../../components/custom-views/selectInput';
 import * as Utils from '../../utils/utils';
-//import GATracker from '../../services/ga';
+import GATracker from '../../services/ga';
 
 class SettingsView extends Component {
   static displayName = 'SettingsView';
@@ -24,7 +24,7 @@ class SettingsView extends Component {
   }
 
   componentDidMount() {
-    // GATracker.trackScreenView('Settings Screen')
+    GATracker.trackScreenView('Settings Screen')
   }
 
   render() {

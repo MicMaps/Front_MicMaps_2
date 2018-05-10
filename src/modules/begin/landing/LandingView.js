@@ -1,4 +1,5 @@
 import React, {PropTypes, Component} from 'react';
+import Permissions from 'react-native-permissions';
 import {
   Text,
   View,
@@ -13,7 +14,7 @@ import * as UserActions from '../../../redux/user/UserActions';
 import * as ViewUtils from '../../../utils/viewUtils';
 import globalStyles from '../../../styles/globalStyles';
 import MicMapsLogo from '../../../../images/MicMaps_ICON.png';
-//import GATracker from '../../../services/ga'
+import GATracker from '../../../services/ga'
 
 class LandingView extends Component {
   static displayName = 'LandingView';
@@ -28,11 +29,12 @@ class LandingView extends Component {
     this.errorTimer = null;
     this.facebookLogin = this.facebookLogin.bind(this)
     this.facebookUserSignup = this.facebookUserSignup.bind(this)
-    this.renderError = this.renderError.bind(this)
+    this.renderError = this.renderError.bind(this);
+    this.moveNext = this.moveNext.bind(this);
   }
 
   componentDidMount() {
-    // GATracker.trackScreenView('Landing Screen')
+    GATracker.trackScreenView('Landing Screen')
     this.props.dispatch(UserActions.resetError())
   }
 
@@ -114,13 +116,25 @@ class LandingView extends Component {
       fbUser, (response) => {
       //console.log('FACEBOOK_USER_SIGNUP_RESPONSE', response);
       if(response.status) {
-        this.props.navigation.navigate({routeName:'Home'})
+        this.moveNext();
       }
       else {
         let error = response.data.message ? JSON.parse(response.data.message).error == 'Error Already Exists'?'An account already exists with this facebook account. Try logging in.': JSON.parse(response.data.message).error: 'Something went wrong, try again later!';
         // Alert.alert('Facebook Login', error)
       }
     }))
+  }
+  moveNext() {
+    Permissions.check('location')
+      .then(locationPermission => {
+        if(locationPermission === 'authorized'){
+            this.props.navigation.navigate({routeName:'Home'})
+        } 
+        else {
+            this.props.navigation.navigate({routeName:'UseLocation'})
+        }
+        //console.log('location permissions check response: ', locationPermission)
+    })
   }
 }
 

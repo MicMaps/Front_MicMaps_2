@@ -14,7 +14,7 @@ import CustomTextInput from '../../../../components/custom-views/textInput';
 import CustomSelectInput from '../../../../components/custom-views/selectInput';
 import OptionSelectInput from '../../../../components/custom-views/optionSelectInput';
 import {getPlaceDetailsFromGoogle} from '../../../../services/mics';
-//import GATracker from '../../../../services/ga'
+import GATracker from '../../../../services/ga'
 
 class AboutMicForm extends Component {
   static displayName = 'AboutMicForm';
@@ -42,7 +42,7 @@ class AboutMicForm extends Component {
   }
 
   componentDidMount() {
-    //GATracker.trackScreenView('Mics Suggest About Screen')
+    GATracker.trackScreenView('Mics Suggest About Screen')
   }
 
   render() {

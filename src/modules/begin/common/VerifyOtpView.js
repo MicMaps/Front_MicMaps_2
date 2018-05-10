@@ -17,7 +17,7 @@ import CustomTextInput from '../../../components/custom-views/textInput';
 import AlertBar from '../../../components/alert-bar/alertBar';
 import Loader from '../../../components/modals/loader/loader';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-// import GATracker from '../../../services/ga'
+import GATracker from '../../../services/ga'
 
 class VerifyOtpView extends Component {
   static displayName = 'VerifyOtpView';
@@ -38,7 +38,7 @@ class VerifyOtpView extends Component {
 
   componentDidMount() {
     //console.log('VERIFY_OTP_VIEW_PROPS', this.props);
-    // GATracker.trackScreenView('Verify OTP Screen')
+    GATracker.trackScreenView('Verify OTP Screen')
   }
 
   componentWillUnmount() {

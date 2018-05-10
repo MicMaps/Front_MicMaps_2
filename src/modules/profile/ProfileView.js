@@ -21,7 +21,7 @@ import * as UserActions from '../../redux/user/UserActions';
 import CustomTextInput from '../../components/custom-views/textInput';
 import ProfileIconGreen from '../../../images/profilIconGreen2x.png';
 import {NavigationActions} from 'react-navigation';
-//import GATracker from '../../services/ga';
+import GATracker from '../../services/ga';
 
 class ProfileView extends Component {
   static displayName = 'ProfileView';
@@ -59,7 +59,7 @@ class ProfileView extends Component {
       })
       this.props.dispatch(UserActions.getUserMicsRequest(user._id))
     }
-    //GATracker.trackScreenView('Current User Profile Screen')
+    GATracker.trackScreenView('Current User Profile Screen')
 
   }
 

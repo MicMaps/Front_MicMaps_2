@@ -21,7 +21,7 @@ import StageIcon from '../../../../images/stageIcon2x.png'
 import MicIconGreen from '../../../../images/micIconGreen2x.png'
 import MapIcon from '../../../../images/mapIcon2x.png'
 import MicMapsLogo from '../../../../images/MicMaps_ICON.png'
-// import GATracker from '../../../services/ga'
+import GATracker from '../../../services/ga'
 
 class IntroView extends Component {
   static displayName = 'IntroView';
@@ -67,7 +67,7 @@ class IntroView extends Component {
     this.handleUserSavedData = this.handleUserSavedData.bind(this);
   }
   componentDidMount() {
-    //GATracker.trackScreenView('Intoduction Screen')
+    GATracker.trackScreenView('Intoduction Screen')
   }
   componentWillMount() {
     this.handleUserSavedData();

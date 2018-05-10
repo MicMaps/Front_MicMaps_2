@@ -324,7 +324,7 @@ class MicInfo extends Component {
               {editMode?
               <TextInput
                 ref= {(el) => {this._parkingDetailsInput = el}}
-                style={styles.textInput}
+                style={[styles.textInput, styles.autoGrowInput]}
                 value={mic && mic.parkingDetails ? mic.parkingDetails : ''}
                 onChangeText={(text) => onChangeMicInfo ? onChangeMicInfo('parkingDetails', text) : null}
                 editable={editMode}
@@ -345,7 +345,7 @@ class MicInfo extends Component {
               {editMode?
               <TextInput
                 ref= {(el) => {this._otherInfoInput = el}}
-                style={styles.textInput}
+                style={[styles.textInput, styles.autoGrowInput]}
                 multiline={true}
                 value={mic && mic.otherInfo ? mic.otherInfo : ''}
                 onChangeText={(text) => onChangeMicInfo ? onChangeMicInfo('otherInfo', text) : null}
@@ -748,10 +748,10 @@ const styles = StyleSheet.create({
     color: ViewUtils.COLOR_THEME_BLUE,
     fontSize: 14,
     height: 40,
-    paddingTop:Platform.OS==='ios' ? -9 : 10,
-    paddingBottom:Platform.OS==='ios' ? 2 : 10,
-    marginTop: -11,
-    marginLeft: -4,
+    paddingTop:Platform.OS==='ios' ? 0 : 10,
+    paddingBottom:Platform.OS==='ios' ? 0 : 10,
+    marginTop: Platform.OS==='ios'? -11: -11,
+    marginLeft:Platform.OS==='ios' ? 0: -4,
     fontFamily: ViewUtils.FONT_DOSIS_MEDIUM,
   },
   profileButton: {
@@ -760,6 +760,9 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
     borderColor: 'transparent',
     marginTop:15
+  },
+  autoGrowInput: {
+    marginTop: Platform.OS ==='ios' ? 0:-11
   }
 });
 

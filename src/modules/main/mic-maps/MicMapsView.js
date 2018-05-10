@@ -11,7 +11,7 @@ import Ionicon from 'react-native-vector-icons/Ionicons';
 import MapStyles from '../../../styles/mapStyles';
 import * as Utils from '../../../utils/utils';
 import * as ViewUtils from '../../../utils/viewUtils';
-import MicPin from '../../../../images/micPin62x.png';
+import MicPin from '../../../../images/micPin6.png';
 
 let mapViewSize = {
   width: ViewUtils.WINDOW_WIDTH,
@@ -120,7 +120,7 @@ class MicMapsView extends Component {
         <View style={styles.markerOuterTriangle} />
         <View style={styles.markerInnerTriangle} /> */}
         <View style={styles.markerPinContainer}>
-          <Image style={styles.markerPin} source={MicPin} />
+          {/* <Image style={styles.markerPin} source={MicPin} /> */}
           {locationsCount > 1 ? (
             <View style={styles.markerMicCountContainer}>
               <Text style={styles.markerMicCountText}>{locationsCount}</Text>
