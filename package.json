@@ -36,9 +36,9 @@
       "node_modules/(?!(jest-)?react-native|react-navigation)"
     ]
   },
-  "rnpm":{
+  "rnpm": {
     "assets": [
-   "./assets/fonts/"
+      "./assets/fonts/"
     ]
   },
   "dependencies": {
@@ -63,6 +63,7 @@
     "react-native-keyboard-aware-scroll-view": "^0.5.0",
     "react-native-maps": "^0.21.0",
     "react-native-permissions": "^1.1.1",
+    "react-native-push-notification-ce": "^3.1.7",
     "react-native-settings": "0.0.1-alpha5",
     "react-native-vector-icons": "^4.4.2",
     "react-navigation": "^1.5.7",

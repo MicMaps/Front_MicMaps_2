@@ -10,7 +10,7 @@ import {
   setCustomText,
   setCustomTextInput
 } from 'react-native-global-props';
-import * as GlobalStyles from '../styles/globalStyles'
+import * as GlobalStyles from '../styles/globalStyles';
 
 class AppView extends Component {
   static displayName = 'AppView';

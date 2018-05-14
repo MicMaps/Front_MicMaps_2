@@ -1,24 +1,24 @@
-import React, {PropTypes, Component} from 'react';
+import React, {Component} from 'react';
 import Permissions from 'react-native-permissions';
 import {
   Text,
   View,
-  TextInput,
   TouchableOpacity,
   StyleSheet,
   Keyboard,
   TouchableWithoutFeedback
 } from 'react-native';
-import IoniconsIcon from 'react-native-vector-icons/Ionicons'
-import PageHeader from '../../../components/custom-views/pageHeader'
-import AlertBar from '../../../components/alert-bar/alertBar'
-import Loader from '../../../components/modals/loader/loader'
-import * as Utils from '../../../utils/utils'
-import * as ViewUtils from '../../../utils/viewUtils'
-import * as UserActions from '../../../redux/user/UserActions'
-import GlobalStyles from '../../.././styles/globalStyles'
-import CustomTextInput from '../../../components/custom-views/textInput'
-import GATracker from '../../../services/ga'
+import IoniconsIcon from 'react-native-vector-icons/Ionicons';
+import PageHeader from '../../../components/custom-views/pageHeader';
+import AlertBar from '../../../components/alert-bar/alertBar';
+import Loader from '../../../components/modals/loader/loader';
+import * as Utils from '../../../utils/utils';
+import * as ViewUtils from '../../../utils/viewUtils';
+import * as UserActions from '../../../redux/user/UserActions';
+import GlobalStyles from '../../.././styles/globalStyles';
+import CustomTextInput from '../../../components/custom-views/textInput';
+import GATracker from '../../../services/ga';
+import PushNotification from 'react-native-push-notification-ce';
 
 
 class LoginView extends Component {
@@ -164,6 +164,7 @@ class LoginView extends Component {
     this.props.dispatch(UserActions.loginRequest(tempUser, (response) => {
       //console.log('USER_LOGIN_RESPONSE', response)
       if(response.status) {
+        PushNotification.requestPermissions()
         this.props.dispatch(UserActions.saveRememberMeStatus(isRemembered));
         this.moveNext()
       }
@@ -191,6 +192,7 @@ class LoginView extends Component {
       fbUser, (response) => {
       //console.log('FACEBOOK_USER_LOGIN_RESPONSE', response);
       if(response.status) {
+        PushNotification.requestPermissions()
         this.props.dispatch(UserActions.saveRememberMeStatus(isRemembered));
         this.moveNext()
       }

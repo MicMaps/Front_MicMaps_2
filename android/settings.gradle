@@ -1,4 +1,6 @@
 rootProject.name = 'MicMaps'
+include ':react-native-push-notification-ce'
+project(':react-native-push-notification-ce').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-push-notification-ce/android')
 include ':react-native-google-analytics-bridge'
 project(':react-native-google-analytics-bridge').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-google-analytics-bridge/android')
 include ':react-native-maps'

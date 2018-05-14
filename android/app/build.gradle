@@ -148,6 +148,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-push-notification-ce')
     compile project(':react-native-google-analytics-bridge')
     compile project(':react-native-maps')
     compile project(':react-native-android-settings')

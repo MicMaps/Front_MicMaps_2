@@ -38,7 +38,6 @@ class CustomTextInput extends Component {
 
     let {onFocus, ...inputProps} = textInputProps ? textInputProps : {};
     //console.log("TEXT_INPUT_VIEW: onfocus", onFocus);
-    console.log(TextInput)
     return (
       <View style={[styles.container, style]}>
         <View style={styles.textContainer}>
