@@ -28,7 +28,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>3</string>
 	<key>FacebookAppID</key>
 	<string>159196017971328</string>
 	<key>FacebookDisplayName</key>
@@ -60,6 +60,8 @@
 			</dict>
 		</dict>
 	</dict>
+	<key>NSAppleMusicUsageDescription</key>
+	<string>MicMaps would like to access your media library to browse for profile pictures</string>
 	<key>NSBluetoothPeripheralUsageDescription</key>
 	<string>MicMaps would like access bluetooth.</string>
 	<key>NSCalendarsUsageDescription</key>
@@ -68,6 +70,8 @@
 	<string>To capture image for setting it as  your profile picture.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>To show open mics around your current location.</string>
+	<key>NSMotionUsageDescription</key>
+	<string>MicMaps would like to access motion.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>To browse photos in your photo library for setting the selected image as your profile image.</string>
 	<key>NSSpeechRecognitionUsageDescription</key>
