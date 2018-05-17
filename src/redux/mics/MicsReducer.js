@@ -56,7 +56,7 @@ import {
     switch (action.type) {
   
       case GET_MICS_REQUEST:
-        return state.set('loading', true).set('error', false).set('mics', []);
+        return state.set('loading', true).set('error', false);
   
       case GET_MIC_DETAILS_REQUEST:
         return state.set('loading', true).set('error', false).set('recentMic', {});

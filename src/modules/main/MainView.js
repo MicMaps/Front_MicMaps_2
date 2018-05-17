@@ -121,8 +121,7 @@ class MainView extends Component {
           viewMode={viewMode === 'map' ? 'list' : 'map'}
           onLeftButtonPress={() => this.toggleViewMode()}
           onRightButtonPress={() => this.props.navigation.navigate({routeName: 'Profile'})}
-          navigation = {this.props.navigation} />
-        <Loader visibility={!!loading} />      
+          navigation = {this.props.navigation} />    
         {viewMode === 'map' ? (
           <MicMaps
             initialRegion={initialRegion}
@@ -133,7 +132,7 @@ class MainView extends Component {
             currentLocation = {currentLocation}
             ref={(mp) => this.mapView = mp}/>
         ) : null}
-        {viewMode === 'list' && !loading ? (micsToList && micsToList.length > 0) ? (
+        {viewMode === 'list' ? (micsToList && micsToList.length > 0) ? (
           <MicsList
             mics={micsToList}
             style={styles.micsListContainer}
