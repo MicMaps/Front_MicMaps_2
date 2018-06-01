@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 
+import NavigationService from '../../services/navigationService';
 import AppNavigator from './Navigator';
 
 class NavigatorView extends Component {
@@ -7,7 +8,9 @@ class NavigatorView extends Component {
 
   render() {
     return (
-      <AppNavigator />
+      <AppNavigator ref={navigatorRef => {
+        NavigationService.setTopLevelNavigator(navigatorRef);
+      }} />
     );
   }
 }

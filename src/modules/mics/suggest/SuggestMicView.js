@@ -48,7 +48,7 @@ class SuggestMicView extends Component {
       costType: 'free',
       location: '',
       micDays: [],
-      signupBy: Moment().format('hh:mma'),
+      signupBy: Moment().format('hh:mm a'),
       displayPhone: true,
       displayEmail: true
     };

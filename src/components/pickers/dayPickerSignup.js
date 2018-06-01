@@ -9,10 +9,10 @@ import {
 } from 'react-native';
 import Moment from 'moment';
 import * as ViewUtils from '../../utils/viewUtils';
-import ArrowPointerIcon from '../../../images/arrowPointer2x.png'
+import ArrowPointerIcon from '../../../images/arrowPointer2x.png';
 
-class DayPicker extends Component {
-  static displayName = 'DayPicker';
+class DayPickerSignup extends Component {
+  static displayName = 'DayPickerSignup';
 
   constructor(props) {
     super(props);
@@ -23,17 +23,11 @@ class DayPicker extends Component {
     this.isSelected = this.isSelected.bind(this);
   }
 
-  componentDidMount() {
-
-    const {selectedDay} = this.props;
-    if(selectedDay) this.setState({selectedDay});
-  }
+  
 
   render() {
 
-    const {onSelectDay} = this.props;
-    const {selectedDay} = this.state;
-    const days = getWeekDays();
+    const {days, onSelectDay} = this.props;
 
     return (
       <View style={styles.container}>
@@ -42,12 +36,12 @@ class DayPicker extends Component {
             return (
               <TouchableOpacity
                 key={idx}
-                style={[styles.dayTextContainer, this.isSelected(day) ? styles.selectedBox : null]}
-                onPress={() => this.setState({selectedDay: day}, () => onSelectDay(day))}>
+                style={[styles.dayTextContainer, {width: ViewUtils.WINDOW_WIDTH / (days.length > 7 ? 7 : days.length)}, this.isSelected(day) ? styles.selectedBox : null]}
+                onPress={() => onSelectDay(day)}>
                 <Text style={styles.dayText}>
-                  {this.isToday(day) ? 'TODAY' : Moment(day).format('ddd').toUpperCase()}
+                  {this.isToday(day) ? 'TODAY' : Moment(day).format('MMM').toUpperCase()}
                 </Text>
-                <Text style={[styles.dateText, idx == 0 ? styles.todayDateText : null]}>
+                <Text style={[styles.dateText, this.isToday(day) ? styles.todayDateText : null]}>
                   {Moment(day).format('D')}
                 </Text>
                 {this.isSelected(day) ? (
@@ -63,26 +57,19 @@ class DayPicker extends Component {
 
   isSelected(date) {
 
-    const {selectedDay} = this.state;
-    if(!selectedDay) return false;
-    let d1 = Moment(date).format('DD-MM-YYYY')
-    let d2 = Moment(selectedDay).format('DD-MM-YYYY');
+    const {selectedDay} = this.props;
+    if (!selectedDay) {
+        return false;
+    }
+    let d1 = Moment(date).format('MM-DD-YYYY')
+    let d2 = Moment(selectedDay).format('MM-DD-YYYY');
     return d1 === d2;
   }
 
   isToday(date) {
-    return Moment(date).format('DD-MM-YYYY') === Moment().format('DD-MM-YYYY')
+    return Moment(date).format('MM-DD-YYYY') === Moment().format('MM-DD-YYYY')
   }
 
-}
-function getWeekDays() {
-
-  let weekDays = [];
-  for (var i=0;i<7;i++) {
-    let date = Moment().add(i, 'days').toDate();
-    weekDays.push(date);
-  }
-  return weekDays;
 }
 
 const styles = StyleSheet.create({
@@ -130,4 +117,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default DayPicker;
+export default DayPickerSignup;

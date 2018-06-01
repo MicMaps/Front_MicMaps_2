@@ -46,8 +46,7 @@ class UserProfileView extends Component {
     //console.log('PROFILE_VIEW_PROPS', this.props);
     return (
       <View style={styles.container}>
-        <GeneralBackHeader 
-        navigation={this.props.navigation} />
+        <GeneralBackHeader />
         <ScrollView>
           <View style={styles.contentContainer}>
            <PageHeader title={`${hostName} Mics`} blueLineFill={0}

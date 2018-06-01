@@ -38,3 +38,11 @@ export function getPlaceDetailsFromGoogle(placeID) {
   //console.log('SEARCH_MICS_QUERY_STRING', `/mics/search?${query}`);
   return get(`https://maps.googleapis.com/maps/api/place/details/json?${query}`)
 }
+
+export function signupForMic(micId, data) {
+  return post(`/mic/${micId}/signup`, data);
+}
+
+export function getSignupData(micId) {
+  return get(`/mic/${micId}/signup`);
+}

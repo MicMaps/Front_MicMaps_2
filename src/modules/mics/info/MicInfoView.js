@@ -77,9 +77,14 @@ class MicsInfoView extends Component {
         <Loader visibility={loading} />
         <View style={styles.topView}>
         {
-          !loading?
-          <MicInfo mic={micInfo} viewMode={'details'} micDate={micDate} isUserMic={isUserMic} showHostInfo={this.showHostInfo(micInfo)}/>
-          :<Text>Loading Mic Details..</Text>
+          !loading ?
+          <MicInfo mic={micInfo}
+            viewMode={'details'}
+            micDate={micDate}
+            isUserMic={isUserMic}
+            showHostInfo={this.showHostInfo(micInfo)}
+          />
+          : <Text>Loading Mic Details..</Text>
         }
 
         </View>

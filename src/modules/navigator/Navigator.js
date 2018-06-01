@@ -21,6 +21,7 @@ import TermsAndConditionsView from '../settings/tos/TermsAndConditionsView';
 import SuggestMicViewContainer from '../mics/suggest/SuggestMicViewContainer';
 import ConfirmMicViewContainer from '../mics/suggest/confirm/ConfirmMicViewContainer';
 import SuggestMicSuccessViewContainer from '../mics/suggest/success/SuggestMicSuccessViewContainer';
+import MicSignupView from '../mics/info/MicSignupView';
 
 const BeginStackNavigator = StackNavigator({
   Intro: {screen: IntroViewContainer},
@@ -50,7 +51,8 @@ const MainStackNavigator = StackNavigator({
   Settings: {screen: SettingsViewContainer},
   Permissions: {screen: PermissionsViewContainer},
   HowItWorks: {screen: HowItWorksView},
-  TOS: {screen: TermsAndConditionsView}
+  TOS: {screen: TermsAndConditionsView},
+  MicSignup: {screen: MicSignupView}
 }, {
   headerMode: 'none',
   cardStyle: {

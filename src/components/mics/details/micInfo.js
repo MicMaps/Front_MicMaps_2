@@ -25,6 +25,7 @@ import * as ViewUtils from '../../../utils/viewUtils';
 import * as Utils from '../../../utils/utils';
 import * as Cloudinary from '../../../services/cloudinary';
 import EvilIcon from 'react-native-vector-icons/EvilIcons';
+import NavigationService from '../../../services/navigationService';
 
 class MicInfo extends Component {
 
@@ -288,6 +289,18 @@ class MicInfo extends Component {
                   <Text style={GlobalStyles.listItemLabel}>{'Mic Type'}</Text>
                   <Text style={GlobalStyles.listItemContent} ellipsizeMode={'tail'} numberOfLines={1}>
                     {this.getFormattedMicType()}
+                  </Text>
+                </TouchableOpacity>
+              ) : null
+            }
+            {
+              viewMode === 'details' && mic.micType === 'signup' && mic.signupType === 'advanced' ? (
+                <TouchableOpacity style={styles.smallButtonContainer}
+                  onPress={() => NavigationService.navigate('MicSignup', {micId: mic._id, isUserMic: isUserMic})}>
+                  <EvilIcon style={{width: 18, height: 15, fontSize: 20, color: ViewUtils.COLOR_THEME_BLUE}} name={'user'} />
+                  <Text style={styles.smallButtonText}>
+
+                    Sign up
                   </Text>
                 </TouchableOpacity>
               ) : null

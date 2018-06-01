@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import Moment from 'moment';
 import {
   View,
   StyleSheet,
@@ -14,7 +15,8 @@ import CustomTextInput from '../../../../components/custom-views/textInput';
 import CustomSelectInput from '../../../../components/custom-views/selectInput';
 import OptionSelectInput from '../../../../components/custom-views/optionSelectInput';
 import {getPlaceDetailsFromGoogle} from '../../../../services/mics';
-import GATracker from '../../../../services/ga'
+import DateTimeSelectInput from '../../../../components/custom-views/dateTimeSelectInput';
+import GATracker from '../../../../services/ga';
 
 class AboutMicForm extends Component {
   static displayName = 'AboutMicForm';
@@ -30,12 +32,16 @@ class AboutMicForm extends Component {
       ],
       micTypeOptions: [
         {key: 'lotto', name: 'Lotto', type: 'select'},
-        {key: 'signup', name: 'Signup', type: 'input', inputParams: {placeholder: 'What time is sign up?'}},
+        {key: 'signup', name: 'Signup', type: 'select'},
         {key: 'booked', name: 'Booked', type: 'select'},
         {key: 'custom', name: 'Custom', type: 'input'}
       ],
+      signupByOptions: [
+        {key: 'onsite', name: 'On Site', type: 'select'},
+        {key: 'advanced', name: 'Advanced', type: 'select'}
+      ],
       loading: false
-    }
+    };
 
     this.onSelectVenueAddressRequest = this.onSelectVenueAddressRequest.bind(this);
     this._scrollToInput = this._scrollToInput.bind(this);
@@ -49,8 +55,8 @@ class AboutMicForm extends Component {
 
      const {onChangeFieldValue, formData, onSelectAddressRequest} = this.props;
     const {name, venueName, venueAddress, cost, costType, costCustom, timeOnStage, parkingDetails, otherInfo,
-      hostName, hostPhone, hostEmail, free, micType, micTypeCustom, signupBy} = formData;
-    const {freePaidOptions, micTypeOptions, loading} = this.state;
+      hostName, hostPhone, hostEmail, free, micType, signupType, noOfSignupSlots, micTypeCustom, signupBy} = formData;
+    const {freePaidOptions, micTypeOptions, signupByOptions, loading} = this.state;
     console.log("ABOUT_MIC_FORM_DATA", formData);
     return (
       <View style={styles.container}>
@@ -133,32 +139,59 @@ class AboutMicForm extends Component {
                 selectedOption={micType}
                 formatValue={(val) => {
                   if(val && val === 'custom') return micTypeCustom ? `Custom / ${micTypeCustom}` : '';
-                  if(val && val === 'signup') return signupBy ? `SignupBy / ${signupBy.toString()}` : '';
                   else {
                     return val ? val.charAt(0).toUpperCase() + val.slice(1) : ''
                   }
                 }}
                 optionInputs={{
-                  custom: micTypeCustom ? micTypeCustom : '',
-                  signup: signupBy ? signupBy.toString() : ''
+                  custom: micTypeCustom ? micTypeCustom : ''
                 }}
                 onChangeOptionInputs={(key, value) => {
                   if(onChangeFieldValue) {
                     if(key === 'custom') onChangeFieldValue('micTypeCustom', value);
-                    if(key === 'signup') onChangeFieldValue('signupBy', value)
                   }
                 }} />
-              {/*micType==='signup' ? (
-                <DateTimeSelectInput
-                    label={'What time is sign up?'}
-                    datePickerProps={{
-                      date: signupBy,
-                      mode: "date",
-                      minuteInterval: 30,
-                      minimumDate: new Date(),
-                      onDateChange: (date) => onChangeFieldValue ? onChangeFieldValue('signupBy', date) : null
-                    }} />
-              ) : null*/}
+              {micType === 'signup' ? (
+                <OptionSelectInput
+                  label={'Sign up type'}
+                  options={signupByOptions}
+                  onSelectOption={(option) => onChangeFieldValue ? onChangeFieldValue('signupType', option): null}
+                  selectedOption={signupType}
+                  formatValue={(val) => {
+                    return val ? val.charAt(0).toUpperCase() + val.slice(1) : '';
+                  }}
+                  />
+
+              ) : null}
+              {signupType === 'onsite' ? (
+                <CustomTextInput
+                    label={'Sign up on site by *'}
+                    textInputProps={{
+                      placeholder: 'What time is sign up?',
+                      value: signupBy,
+                      ref: (el) => {this._signupBy = el},
+                      onChangeText: (text) => onChangeFieldValue ? onChangeFieldValue('signupBy', text) : '',
+                      returnKeyType: 'next',
+                      onSubmitEditing: () => this._parkingDetailsInput.focus(),
+                      onFocus: this._scrollToInput
+                    }}
+                     />
+              ) : null}
+              {signupType === 'advanced' ? (
+                <CustomTextInput
+                    label={'No. of sign up slots *'}
+                    textInputProps={{
+                      placeholder: 'How many sign ups?',
+                      value: noOfSignupSlots,
+                      ref: (el) => {this._noOfSignupSlots = el},
+                      onChangeText: (text) => onChangeFieldValue ? onChangeFieldValue('noOfSignupSlots', text) : '',
+                      keyboardType: 'numeric',
+                      returnKeyType: 'next',
+                      onSubmitEditing: () => this._parkingDetailsInput.focus(),
+                      onFocus: this._scrollToInput
+                    }}
+                     />
+              ) : null}
 
             <CustomTextInput
                 label={"Parking"}
