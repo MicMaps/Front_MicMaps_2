@@ -10,7 +10,8 @@ import {
   StyleSheet,
   Platform,
   Alert,
-  ToastAndroid
+  ToastAndroid,
+  Linking
 } from 'react-native';
 import Moment from 'moment';
 import * as Utils from '../../utils/utils';
@@ -148,7 +149,17 @@ class MainView extends Component {
           <DayPicker onSelectDay={this.onSelectMicsDay} selectedDay={micsDate}/>
         </View>
           <View style={styles.bottomBar}>
+          {viewMode === 'map' ? (
+              <View
+              style={[styles.bottomButtonContainer, {flex:1}]}>
+              <TouchableOpacity style={styles.circularButtonHelp}
+                onPress={() => this.sendHelpEmail()}>
+                <Ionicon style={[{color: '#FFF', fontSize:45, backgroundColor: 'transparent'}]} name='ios-help-outline'/>
+              </TouchableOpacity>
+            </View>
+          ) : (
             <View style={[styles.bottomButtonContainer, {flex:1}]}></View>
+          )}
             <View style={[styles.bottomButtonContainer, {flex:2}]}>
               <TouchableOpacity
                 style={styles.suggestMicButton}
@@ -344,6 +355,11 @@ class MainView extends Component {
     })
   }
 
+  sendHelpEmail() {
+    let mailUrl = 'mailto:tierney@micmaps.com?subject=MicMaps Help';
+    return Linking.openURL(mailUrl);
+  }
+
 }
 
 function distance(lat1, lon1, lat2, lon2, unit) {
@@ -391,6 +407,19 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   circularButton: {
+    width: 46,
+    height: 46,
+    borderRadius: 23,
+    backgroundColor: ViewUtils.COLOR_THEME_BLUE,
+    shadowColor: ViewUtils.COLOR_THEME_EXTRA_LIGHT_BLUE,
+    shadowOffset: { width: 2, height: 4 },
+    shadowOpacity: 0.6,
+    shadowRadius: 6,
+    marginTop: -4,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  circularButtonHelp: {
     width: 46,
     height: 46,
     borderRadius: 23,
