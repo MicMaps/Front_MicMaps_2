@@ -149,8 +149,8 @@ class SuggestMicView extends Component {
 
   isDataValid() {
 
-    const {name, venueName, venueAddress, parkingDetails, timeOnStage, otherInfo, currentForm, micDate, micType, micTypeCustom, signupBy, startTime, endTime, repeatTimes, repeatFrequency, hostName, hostPhone, hostEmail, free, cost, costType, costCustom, location, micDays } = this.state;
-    if(currentForm === 'aboutMic') return name && venueName && venueAddress && location && timeOnStage && micType && (micType === 'custom' ? micTypeCustom : true) && (micType === 'signup' ? signupBy : true) && costType && (costType === 'paid' ? cost : true) && (costType === 'costCustom' ? costCustom : true);
+    const {name, venueName, venueAddress, parkingDetails, timeOnStage, otherInfo, currentForm, micDate, micType, micTypeCustom, signupBy, signupType, noOfSignupSlots, startTime, endTime, repeatTimes, repeatFrequency, hostName, hostPhone, hostEmail, free, cost, costType, costCustom, location, micDays } = this.state;
+    if(currentForm === 'aboutMic') return name && venueName && venueAddress && location && timeOnStage && micType && (micType === 'custom' ? micTypeCustom : true) && (micType === 'signup' ? signupType === 'onsite'? signupBy : noOfSignupSlots && noOfSignupSlots > 0 : true) && costType && (costType === 'paid' ? cost : true) && (costType === 'costCustom' ? costCustom : true);
     else if(currentForm === 'hostInfo') return hostPhone && hostEmail && hostName && Utils.isEmailValid(hostEmail) && Utils.isPhoneNumberValid(hostPhone);
     else if(currentForm === 'whenMic') return micDate && startTime && endTime && repeatFrequency 
       && (repeatFrequency === 'custom' ? micDays.length > 0 : (repeatTimes > 0 )) ;
@@ -242,12 +242,16 @@ class SuggestMicView extends Component {
         micData.micTypeCustom = micData.micType;
         micData.micType = 'custom';
       }
-      if(micData.micType === 'signup')
+      if(micData.micType === 'signup') {
         micData.signupBy = micData.signupBy ? micData.signupBy.toString() : '';
+        micData.signupType = micData.signupType?micData.signupType: 'onsite';
+      }
+        
 
       micData.micEdit = true;
       micData.micId = micData._id;
       micData.micImage = micData.image;
+      micData.noOfSignupSlots = micData.noOfSignupSlots? micData.noOfSignupSlots.toString():'';
       this.setState(micData);
 
     }

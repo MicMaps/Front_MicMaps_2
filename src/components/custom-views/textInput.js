@@ -22,7 +22,6 @@ class CustomTextInput extends Component {
   }
 
   render() {
-    console.log(this.props)
     const {style, textInputProps, label, noValidation, validationStatus, validationMessage} = this.props;
     const {onTouched, onFocused} = this.state;
 
@@ -38,7 +37,6 @@ class CustomTextInput extends Component {
 
     let {onFocus, ...inputProps} = textInputProps ? textInputProps : {};
     //console.log("TEXT_INPUT_VIEW: onfocus", onFocus);
-    console.log(TextInput)
     return (
       <View style={[styles.container, style]}>
         <View style={styles.textContainer}>

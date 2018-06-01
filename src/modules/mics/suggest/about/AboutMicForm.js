@@ -153,7 +153,7 @@ class AboutMicForm extends Component {
                 }} />
               {micType === 'signup' ? (
                 <OptionSelectInput
-                  label={'Sign up type'}
+                  label={'Sign up type *'}
                   options={signupByOptions}
                   onSelectOption={(option) => onChangeFieldValue ? onChangeFieldValue('signupType', option): null}
                   selectedOption={signupType}
@@ -175,6 +175,8 @@ class AboutMicForm extends Component {
                       onSubmitEditing: () => this._parkingDetailsInput.focus(),
                       onFocus: this._scrollToInput
                     }}
+                    validationStatus={!!signupBy}
+                    validationMessage={!signupBy ? 'Please enter a valid sign up by time.' : ''} 
                      />
               ) : null}
               {signupType === 'advanced' ? (
@@ -187,10 +189,12 @@ class AboutMicForm extends Component {
                       onChangeText: (text) => onChangeFieldValue ? onChangeFieldValue('noOfSignupSlots', text) : '',
                       keyboardType: 'numeric',
                       returnKeyType: 'next',
-                      onSubmitEditing: () => this._parkingDetailsInput.focus(),
+                      onSubmitEditing: () => Keyboard.dismiss(),
                       onFocus: this._scrollToInput
                     }}
-                     />
+                    validationStatus={!!noOfSignupSlots && noOfSignupSlots > 0}
+                    validationMessage={!noOfSignupSlots || noOfSignupSlots < 1 ? 'Please enter a valid number of sign up slots.' : ''} 
+                  />
               ) : null}
 
             <CustomTextInput
@@ -234,12 +238,12 @@ class AboutMicForm extends Component {
     
     RNGooglePlaces.openAutocompleteModal()
     .then((place) => {
-      this.setState({loading:true})
+      //this.setState({loading:true})
       getPlaceDetailsFromGoogle(place.placeID)
       .then((placeDetails)=> {
         if(onSelectAddressRequest) {
           onSelectAddressRequest(mapAddressComponents(place, placeDetails.result))
-          this.setState({loading:false})
+          //this.setState({loading:false})
         }
       })
         

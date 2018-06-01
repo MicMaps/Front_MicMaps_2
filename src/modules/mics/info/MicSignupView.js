@@ -170,7 +170,6 @@ class MicSignupView extends Component {
     }
 
     filterDatesForAWeek(days) {
-        
         return _.filter(days, (day) => {
             const diff = Moment(day).diff(Moment(), 'days')
             return (diff >= 0 && diff <= 7);

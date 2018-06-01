@@ -150,10 +150,12 @@ class ConfirmMicView extends Component {
   publishMic() {
 
     const {name, venueName, venueAddress, venueCity, parkingDetails, timeOnStage, otherInfo, cost,
-      micDate, startTime, endTime, repeatTimes, repeatFrequency, micDays, hostName, hostPhone, hostEmail, free, location, micType, micTypeCustom, signupBy, costType, costCustom, micEdit, micId, displayEmail, displayPhone, micImage} = this.state;
+      micDate, startTime, endTime, repeatTimes, repeatFrequency, micDays, hostName, hostPhone, hostEmail, 
+      free, location, micType, micTypeCustom, signupBy, costType, costCustom, micEdit, micId, displayEmail, 
+      displayPhone, micImage, signupType, noOfSignupSlots} = this.state;
 
     let suggestMicData = {
-      name, venueName, venueAddress, venueCity, parkingDetails, otherInfo, repeatFrequency, hostName, hostPhone, hostEmail, free, micType, signupBy, displayEmail, displayPhone
+      name, venueName, venueAddress, venueCity, parkingDetails, otherInfo, repeatFrequency, hostName, hostPhone, hostEmail, free, micType, signupBy, displayEmail, displayPhone, signupType 
     }
     suggestMicData.timeOnStage = parseInt(timeOnStage)
     suggestMicData.repeatTimes = parseInt(repeatTimes)
@@ -193,6 +195,10 @@ class ConfirmMicView extends Component {
     //alert(JSON.stringify(suggestMicData));
     // return;
     console.log('SUGGEST_MIC_DATA', suggestMicData);
+
+    if(noOfSignupSlots) {
+      suggestMicData.noOfSignupSlots = noOfSignupSlots;
+    }
 
     if(micEdit) {
       const user = Utils.toJS(this.props.user);

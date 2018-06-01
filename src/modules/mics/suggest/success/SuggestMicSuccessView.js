@@ -58,7 +58,7 @@ class SuggestMicSuccessView extends Component {
           </TouchableOpacity>
 
           <TouchableOpacity
-            onPress={() => this.props.navigation.navigate({routeName: 'MicInfo', params: {viewMode: 'view', micDate: micDate}})}
+            onPress={() => Utils.resetNavigation(this.props.navigation, 0, [{routeName: 'MicInfo', params: {viewMode: 'view', micDate: micDate}}])}
             style={[GlobalStyles.button, GlobalStyles.buttonGreenOutlined]}>
             <Text style={GlobalStyles.buttonGreenOutlinedText}>VIEW THIS MIC</Text>
           </TouchableOpacity>
