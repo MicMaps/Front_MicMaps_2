@@ -153,7 +153,8 @@ class MicMapsView extends Component {
           </View>
         </View>
       </MapView.Callout>
-    ) : null;
+    ) : <MapView.Callout tooltip >
+    </MapView.Callout>;
   }
 
   groupLocations(locations) {
