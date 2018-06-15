@@ -49,7 +49,7 @@ class MicSignupView extends Component {
         const maxSlotsArray = _.range(1, this.state.maxSlots + 1);
         return (
             <View style={styles.container}>
-                <Loader visibility={loading} />
+                
                 <GeneralBackHeader
                     title={`Mic's Sign Up Sheet`}
                 />
@@ -98,6 +98,7 @@ class MicSignupView extends Component {
                         </View>
                     </ScrollView>
                 </View>
+                <Loader  visibility={loading}/>
                 <MicSignupModal visibility={micSignupModalVisibility} onSubmit={this.signupForMic} slot={this.state.selectedSlot} date={this.state.selectedDay.format('MM/DD/YYYY')} onClose={() => this.setState({ micSignupModalVisibility: false })} />
             </View>
         );

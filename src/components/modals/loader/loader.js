@@ -12,14 +12,9 @@ import EvilIcon from 'react-native-vector-icons/EvilIcons';
 import * as ViewUtils from '../../../utils/viewUtils';
 
 function Loader({visibility}) {
-
+  console.log(visibility)
   return (
-    <Modal
-      animationType={'fade'}
-      transparent={true}
-      visible={visibility}
-      style={styles.modal}
-      onRequestClose={()=>{}}>
+    visibility?
         <View style={styles.container}>
           <View style={styles.loaderContainer}>
             <ActivityIndicator animating={true}
@@ -28,7 +23,7 @@ function Loader({visibility}) {
               color={ViewUtils.COLOR_THEME_GREEN}/>
           </View>
         </View>
-      </Modal>
+        :null
     );
 }
 
@@ -40,7 +35,7 @@ const styles = StyleSheet.create({
     flex:1
   },
   container: {
-    backgroundColor: 'transparent',
+    position: 'absolute',
     flex: 1,
     height: ViewUtils.WINDOW_HEIGHT,
     width: ViewUtils.WINDOW_WIDTH,

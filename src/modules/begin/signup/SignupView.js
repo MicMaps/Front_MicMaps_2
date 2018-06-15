@@ -61,7 +61,6 @@ class SignupView extends Component {
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
     <KeyboardAwareScrollView>
       <View style={styles.container}>
-        <Loader visibility={!!loading} />
         <PageHeader title={'SIGNUP'} blueLineFill={25} />
         <CustomTextInput style={{paddingTop:40}}
           label={"Phone number"}
@@ -120,6 +119,8 @@ class SignupView extends Component {
           <Ionicon style={GlobalStyles.buttonTransparentIcon} name='ios-arrow-forward'/>
         </TouchableOpacity>
         {this.renderError()}
+
+        <Loader visibility={!!loading} />
       </View>
       </KeyboardAwareScrollView>
     </TouchableWithoutFeedback>

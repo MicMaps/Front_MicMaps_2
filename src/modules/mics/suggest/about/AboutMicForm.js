@@ -38,7 +38,7 @@ class AboutMicForm extends Component {
       ],
       signupByOptions: [
         {key: 'onsite', name: 'On Site', type: 'select'},
-        {key: 'advanced', name: 'Advanced', type: 'select'}
+        {key: 'advanced', name: 'Advanced', type: 'select', helperText:'Allow users to sign up for your mic in advance using the micmaps app.'}
       ],
       loading: false
     };

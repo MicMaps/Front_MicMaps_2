@@ -20,7 +20,6 @@ class MicSignupModal extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            loading: false,
             name: '',
             phone: '',
             email: ''
@@ -37,7 +36,7 @@ class MicSignupModal extends Component {
     render() {
 
         const { visibility, open, onClose, slot, date } = this.props;
-        const { loading, name, email, phone } = this.state;
+        const { name, email, phone } = this.state;
         return (
             <View style={{ flex: 1 }}>
                 <Modal
@@ -100,7 +99,6 @@ class MicSignupModal extends Component {
                         </KeyboardAwareScrollView>
                     </View>
                 </Modal>
-                <Loader visibility={loading} />
             </View>
         );
     }

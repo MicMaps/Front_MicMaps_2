@@ -82,9 +82,18 @@ class OptionSelectInput extends Component {
                           onChangeText={(text) => onChangeOptionInputs ? onChangeOptionInputs(option.key, text) : null}
                           keyboardType={option.keyboardType ? option.keyboardType : 'default'}
                           {...option.inputParams} />
+                          
                       ) : (
+                        <View>
                         <Text style={styles.optionText}>{option.name ? option.name : ''}</Text>
+                        </View>
                       )}
+                      {option.helperText?
+                        <View>
+                          <Text style={styles.helperText}>{option.helperText}</Text>
+                        </View>
+                          :null
+                      }
                     </View>
                   </TouchableOpacity>
                 )
@@ -185,9 +194,9 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
   },
   optionRow: {
-    height: Platform.OS==='ios' ? 18: 30,
-    paddingBottom: 8,
-    marginBottom: 18,
+    minHeight: Platform.OS==='ios' ? 18: 30,
+    paddingBottom: 10,
+    marginBottom: 10,
     flexDirection: 'row',
     alignItems: 'flex-end',
     borderBottomWidth: 0.5,
@@ -201,8 +210,8 @@ const styles = StyleSheet.create({
   },
   optionContent: {
     flex:1,
-    height: 18,
-    flexDirection: 'row',
+    minHeight: 18,
+    flexDirection: 'column',
   },
   optionText: {
     fontSize: 16,
@@ -235,6 +244,9 @@ const styles = StyleSheet.create({
   },
   singleLineTextInput: {
     height: 40
+  },
+  helperText: {
+    fontSize: 12
   }
 });
 

@@ -43,9 +43,12 @@ class ImagePreviewModal extends Component {
               </TouchableOpacity>
             </View>
           </View>
-        </Modal>
+
         <Loader visibility={loading} />
+        </Modal>
+
       </View>
+
     );
   }
 }

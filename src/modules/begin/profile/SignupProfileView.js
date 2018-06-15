@@ -61,7 +61,6 @@ class SignupProfileView extends Component {
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
     <KeyboardAwareScrollView>
       <View style={styles.container}>
-        <Loader visibility={loading} />
         <PageHeader title={'PROFILE'} blueLineFill={25} />
         <CustomTextInput style={{paddingTop:40}}
           label={"First Name"}
@@ -105,6 +104,8 @@ class SignupProfileView extends Component {
             !loading ? null : GlobalStyles.buttonGreenOutlinedDisabledText]}>SAVE</Text>
         </TouchableOpacity>
         {this.renderError()}
+
+        <Loader visibility={loading} />
       </View>
       </KeyboardAwareScrollView>
     </TouchableWithoutFeedback>

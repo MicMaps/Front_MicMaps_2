@@ -6,7 +6,7 @@ import IntroViewContainer from '../begin/Intro/IntroViewContainer';
 import LandingViewContainer from '../begin/landing/LandingViewContainer';
 import LoginViewContainer from '../begin/login/LoginViewContainer';
 import SignupViewContainer from '../begin/signup/SignupViewContainer';
-import ForgotPasswordView from '../begin/forgot-password/ForgotPasswordView';
+import ForgotPasswordViewContainer from '../begin/forgot-password/ForgotPasswordViewContainer';
 import SignupProfileViewContainer from '../begin/profile/SignupProfileViewContainer';
 import VerifyOtpViewContainer from '../begin/common/VerifyOtpViewContainer';
 import UseLocationViewContainer from '../begin/permissions/UseLocationViewContainer';
@@ -28,7 +28,7 @@ const BeginStackNavigator = StackNavigator({
   Landing: {screen: LandingViewContainer},
   Login: {screen: LoginViewContainer},
   Signup: {screen: SignupViewContainer},
-  ForgotPassword: {screen: ForgotPasswordView},
+  ForgotPassword: {screen: ForgotPasswordViewContainer},
   SignupProfile: {screen: SignupProfileViewContainer},
   VerifyOTP: {screen: VerifyOtpViewContainer},
   UseLocation: {screen: UseLocationViewContainer}

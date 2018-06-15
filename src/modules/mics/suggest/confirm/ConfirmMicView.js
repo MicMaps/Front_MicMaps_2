@@ -61,7 +61,6 @@ class ConfirmMicView extends Component {
         onRightButtonPress={() => this.props.navigation.navigate({routeName: 'Profile'})}
         isChildPage={true} 
         navigation = {this.props.navigation} />
-        <Loader visibility={loading} />
         <View style={styles.topView}>
           <PageHeader title={'CONFIRM YOUR MIC?'} />
             <MicInfo mic={this.state} viewMode={'confirm'} onChangeMicInfo={this.onChangeMicInfo} editMode={true} renderMicLogo={this.renderMicLogo} scroll={this.scroll}/>
@@ -74,6 +73,8 @@ class ConfirmMicView extends Component {
             <Text style={GlobalStyles.buttonGreenSolidText}>{micEdit ? 'UPDATE' : 'SUBMIT'}</Text>
           </TouchableOpacity>
         </View>
+
+        <Loader visibility={loading} />
         {this.renderError()}
       </View>
     );

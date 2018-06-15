@@ -74,7 +74,7 @@ class MicsInfoView extends Component {
           }}
           onRightButtonPress={() => this.props.navigation.navigate({routeName: 'Profile'})}
           navigation = {this.props.navigation} />
-        <Loader visibility={loading} />
+        
         <View style={styles.topView}>
         {
           !loading ?
@@ -118,6 +118,7 @@ class MicsInfoView extends Component {
             </TouchableOpacity>
           ) : null}
         </View>
+        <Loader visibility={loading} />
         {this.renderSuccess()}
       </View>
     );
