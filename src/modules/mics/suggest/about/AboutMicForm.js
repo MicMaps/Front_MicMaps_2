@@ -15,7 +15,6 @@ import CustomTextInput from '../../../../components/custom-views/textInput';
 import CustomSelectInput from '../../../../components/custom-views/selectInput';
 import OptionSelectInput from '../../../../components/custom-views/optionSelectInput';
 import {getPlaceDetailsFromGoogle} from '../../../../services/mics';
-import DateTimeSelectInput from '../../../../components/custom-views/dateTimeSelectInput';
 import GATracker from '../../../../services/ga';
 
 class AboutMicForm extends Component {
@@ -44,7 +43,6 @@ class AboutMicForm extends Component {
     };
 
     this.onSelectVenueAddressRequest = this.onSelectVenueAddressRequest.bind(this);
-    this._scrollToInput = this._scrollToInput.bind(this);
   }
 
   componentDidMount() {
@@ -63,7 +61,7 @@ class AboutMicForm extends Component {
         <PageHeader
           title={'ADD A MIC'}
           subtitle={'Tell us about your mic'} />
-          <KeyboardAwareScrollView ref={ref => {this.scroll = ref}} extraHeight={220}>
+          <KeyboardAwareScrollView ref={ref => {this.scroll = ref}}  enableOnAndroid={true}>
             <View style={styles.contentContainer}>
               <CustomTextInput
                 label={"Mic Name *"}
@@ -72,8 +70,7 @@ class AboutMicForm extends Component {
                   ref: (el) => {this._micNameInput = el},
                   onChangeText: (text) => onChangeFieldValue ? onChangeFieldValue('name', text) : '',
                   returnKeyType: 'next',
-                  onSubmitEditing: () => this._venueNameInput.focus(),
-                  onFocus: this._scrollToInput
+                  onSubmitEditing: () => this._venueNameInput.focus()
                 }}
                 validationStatus={!!name}
                 validationMessage={!name ? 'Please enter mic name' : ''} />
@@ -84,8 +81,7 @@ class AboutMicForm extends Component {
                   ref: (el) => {this._venueNameInput = el},
                   returnKeyType: 'next',
                   onChangeText: (text) => onChangeFieldValue ? onChangeFieldValue('venueName', text) : '',
-                  onSubmitEditing: () => this.onSelectVenueAddressRequest(),
-                  onFocus: this._scrollToInput
+                  onSubmitEditing: () => this.onSelectVenueAddressRequest()
                 }}
                 validationStatus={!!venueName}
                 validationMessage={!venueName ? 'Please enter venue name' : ''} />
@@ -127,11 +123,10 @@ class AboutMicForm extends Component {
                   onChangeText: (text) => onChangeFieldValue ? onChangeFieldValue('timeOnStage', text) : '',
                   keyboardType: 'numeric',
                   returnKeyType: 'next',
-                  onSubmitEditing: () => Keyboard.dismiss(),
-                  onFocus: this._scrollToInput
+                  onSubmitEditing: () => Keyboard.dismiss()
                 }}
-                validationStatus={!!timeOnStage}
-                validationMessage={!timeOnStage ? 'Please enter stage time duration' : ''} />
+                validationStatus={!!timeOnStage && timeOnStage > 0}
+                validationMessage={!timeOnStage || timeOnStage <= 0 ? 'Please enter a valid stage time duration' : ''} />
               <OptionSelectInput
                 label="Type *"
                 options={micTypeOptions}
@@ -172,8 +167,7 @@ class AboutMicForm extends Component {
                       ref: (el) => {this._signupBy = el},
                       onChangeText: (text) => onChangeFieldValue ? onChangeFieldValue('signupBy', text) : '',
                       returnKeyType: 'next',
-                      onSubmitEditing: () => this._parkingDetailsInput.focus(),
-                      onFocus: this._scrollToInput
+                      onSubmitEditing: () => this._parkingDetailsInput.focus()
                     }}
                     validationStatus={!!signupBy}
                     validationMessage={!signupBy ? 'Please enter a valid sign up by time.' : ''} 
@@ -189,8 +183,7 @@ class AboutMicForm extends Component {
                       onChangeText: (text) => onChangeFieldValue ? onChangeFieldValue('noOfSignupSlots', text) : '',
                       keyboardType: 'numeric',
                       returnKeyType: 'next',
-                      onSubmitEditing: () => Keyboard.dismiss(),
-                      onFocus: this._scrollToInput
+                      onSubmitEditing: () => Keyboard.dismiss()
                     }}
                     validationStatus={!!noOfSignupSlots && noOfSignupSlots > 0}
                     validationMessage={!noOfSignupSlots || noOfSignupSlots < 1 ? 'Please enter a valid number of sign up slots.' : ''} 
@@ -205,8 +198,7 @@ class AboutMicForm extends Component {
                   ref: (el) => {this._parkingDetailsInput = el},
                   onChangeText: (text) => onChangeFieldValue ? onChangeFieldValue('parkingDetails', text) : '',
                   returnKeyType: 'next',
-                  onSubmitEditing: () => this._descriptionInput.focus(),
-                  onFocus: this._scrollToInput
+                  onSubmitEditing: () => this._descriptionInput.focus()
                 }}
                 noValidation={true}/>
               <CustomTextInput
@@ -216,7 +208,6 @@ class AboutMicForm extends Component {
                   ref: (el) => {this._descriptionInput = el},
                   onChangeText: (text) => onChangeFieldValue ? onChangeFieldValue('otherInfo', text) : '',
                   placeholder: 'Optional',
-                  onFocus: this._scrollToInput,
                   returnKeyType: 'next',
                   onSubmitEditing: () => Keyboard.dismiss(),
                 }}
@@ -228,9 +219,6 @@ class AboutMicForm extends Component {
     );
   }
 
-  _scrollToInput (event) {
-    this.scroll.scrollToFocusedInput(ReactNative.findNodeHandle(event.target));
-  }
 
   onSelectVenueAddressRequest() {
 

@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import Moment from 'moment';
 import {
   StyleSheet,
@@ -24,9 +24,10 @@ class MicMapsView extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      markerCalloutRefIndex: null
     };
 
-    this.onMarkerPressed = this.onMarkerPressed.bind(this);
+    this._hideCallout = this._hideCallout.bind(this);
     this.renderMarker = this.renderMarker.bind(this);
     this.renderCallout = this.renderCallout.bind(this);
     this.onMarkerPressed = this.onMarkerPressed.bind(this);
@@ -35,11 +36,15 @@ class MicMapsView extends Component {
 
   componentWillMount() {
 
-    const {viewSize} = this.props;
+    const { viewSize } = this.props;
     if (viewSize) {
       mapViewSize.width = viewSize.width;
       mapViewSize.height = viewSize.height;
     }
+  }
+
+  componentDidUpdate() {
+    console.log(this.props.locations)
   }
 
   render() {
@@ -49,7 +54,7 @@ class MicMapsView extends Component {
 
     //console.log('MIC_MAPS_VIEW_PROPS', this.props);
     return (
-      <View style ={styles.container}>
+      <View style={styles.container}>
         <MapView
           ref={(c) => { this.mapRef = c; }}
           provider={'google'}
@@ -57,18 +62,18 @@ class MicMapsView extends Component {
           customMapStyle={MapStyles}
           initialRegion={initialRegion}
           draggable
-          moveOnMarkerPress = {false}
-          onRegionChange={onRegionChange ? onRegionChange : null}>
+          moveOnMarkerPress={false}
+          onRegionChange={onRegionChange?onRegionChange:null}>
           {
             locations && locations.length ? locations.map((location, index) => {
               return (
                 <MapView.Marker
-                  key={index}
+                  key={location._id}
                   coordinate={Utils.cleanCoordinates(location.location)}
-                  calloutOffset={{x:40, y:0}}
+                  calloutOffset={{ x: 40, y: 0 }}
                   image={MicPin}
                   onPress={() => this.onMarkerPressed(location, groupedLocations)}
-                  ref={(c) => { this[`marker + ${index}`] = c; }}>
+                  ref={(c) => { this[`marker${location._id}`] = c; }}>
                   {this.renderMarker(location, groupedLocations)}
                   {this.renderCallout(location, groupedLocations)}
                 </MapView.Marker>
@@ -79,8 +84,8 @@ class MicMapsView extends Component {
             this.props.currentLocation ? (
               <MapView.Marker
                 coordinate={this.props.currentLocation}>
-                  {/* <Image source={CurrentPin} style={{width: 20, height: 20 }} /> */}
-                  <View style={styles.currentPin}></View>
+                {/* <Image source={CurrentPin} style={{width: 20, height: 20 }} /> */}
+                <View style={styles.currentPin}></View>
               </MapView.Marker>
             ) : null
           }
@@ -90,21 +95,23 @@ class MicMapsView extends Component {
   }
 
   onMarkerPressed(location, groupedLocations) {
-    //this[marker].showCallout();
+
     const {onPressMarker} = this.props;
-    if(!!groupedLocations && onPressMarker) onPressMarker(groupedLocations[location.location.join('_')])
+    if (!!groupedLocations && onPressMarker) {
+      onPressMarker(groupedLocations[location.location.join('_')])
+    }
 
   }
-  snapToCurrentLocation () {
-      let currentLoc = this.props.currentLocation;
-      let currentLocRegion = {
-            latitude: currentLoc.latitude,
-            longitude: currentLoc.longitude,
-            latitudeDelta: 0.15,
-            longitudeDelta: 0.15
-          }
-      console.log(currentLocRegion)
-      this.mapRef.animateToRegion(currentLocRegion);
+  snapToCurrentLocation() {
+    let currentLoc = this.props.currentLocation;
+    let currentLocRegion = {
+      latitude: currentLoc.latitude,
+      longitude: currentLoc.longitude,
+      latitudeDelta: 0.15,
+      longitudeDelta: 0.15
+    }
+    console.log(currentLocRegion)
+    this.mapRef.animateToRegion(currentLocRegion);
   }
   renderMarker(location, groupedLocations) {
 
@@ -135,7 +142,7 @@ class MicMapsView extends Component {
 
   renderCallout(location, groupedLocations) {
 
-    const {onPressMarkerCallout} = this.props;
+    const { onPressMarkerCallout } = this.props;
     const locations = groupedLocations[location.location.join('_')];
     const locationsCount = locations ? Object.keys(locations).length : 0;
     const startTime = Moment(Utils.padZeros(location.startTime), 'hmm').format('hh:mma');
@@ -143,30 +150,45 @@ class MicMapsView extends Component {
     return locationsCount == 1 ? (
       <MapView.Callout tooltip onPress={() => onPressMarkerCallout ? onPressMarkerCallout(location._id) : null}>
         <View style={styles.callout}>
-          <View style={styles.calloutImage}>
-            <Ionicon style={{width: 18, height: 18, color: '#FFF', fontSize: 18}} name={'ios-information-circle-outline'} />
-          </View>
+          
           <View style={styles.calloutContent}>
             <Text style={styles.calloutText} ellipsizeMode={'tail'} numberOfLines={1}>{`Venue: ${location.venueName}`}</Text>
             <Text style={styles.calloutText} ellipsizeMode={'tail'} numberOfLines={1}>{`Time: ${startTime}-${endTime}`}</Text>
             <Text style={styles.calloutText} ellipsizeMode={'tail'} numberOfLines={1}>{`Time on Stage: ${Utils.formatMinutes(location.timeOnStage)}`}</Text>
           </View>
+          <View style={styles.calloutImage}>
+            <Ionicon style={{ width: 24, height: 24, color: '#FFF', fontSize: 24 }} name={'ios-information-circle-outline'} />
+          </View>
         </View>
       </MapView.Callout>
     ) : <MapView.Callout tooltip >
-    </MapView.Callout>;
+      </MapView.Callout>;
   }
 
   groupLocations(locations) {
     let groups = {}
-    if(!locations) return groups;
+    if (!locations) return groups;
 
     locations.map(location => {
       let latLng = location.location.join("_");
-      if(!(latLng in groups)) groups[latLng] = {};
+      if (!(latLng in groups)) groups[latLng] = {};
       groups[latLng][location._id] = location
     })
     return groups;
+  }
+
+  _hideCallout() {
+    let i=0;
+    let markerRef = null;
+    while(true) {
+      markerRef = `marker${i}`;
+      if (this[markerRef] && this[markerRef].hideCallout) {
+        this[markerRef].hideCallout();
+        i++;
+      } else {
+        break;
+      }
+    }
   }
 }
 
@@ -253,8 +275,8 @@ const styles = StyleSheet.create({
   },
   markerOuterTriangle: {
     position: 'absolute',
-    left:11,
-    bottom:1,
+    left: 11,
+    bottom: 1,
     borderLeftColor: 'transparent',
     borderLeftWidth: 3,
     borderTopWidth: 6,
@@ -264,8 +286,8 @@ const styles = StyleSheet.create({
   },
   markerInnerTriangle: {
     position: 'absolute',
-    left:12,
-    bottom:2,
+    left: 12,
+    bottom: 2,
     borderLeftColor: 'transparent',
     borderLeftWidth: 2,
     borderTopWidth: 5,
@@ -296,8 +318,8 @@ const styles = StyleSheet.create({
   },
   calloutImage: {
     position: 'absolute',
-    bottom:5,
-    right:3,
+    bottom: 5,
+    right: 5,
     width: 24,
     height: 24,
     borderRadius: 5,

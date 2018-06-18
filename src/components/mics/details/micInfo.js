@@ -56,7 +56,6 @@ class MicInfo extends Component {
     this.onChangeOptionInput = this.onChangeOptionInput.bind(this);
     this.getFormattedCost = this.getFormattedCost.bind(this);
     this.getFormattedMicType = this.getFormattedMicType.bind(this);
-    this._scrollToInput = this._scrollToInput.bind(this);
     this.getCustomMicDays = this.getCustomMicDays.bind(this);
     this.onSelectVenueAddressRequest = this.onSelectVenueAddressRequest.bind(this);
     this.openAndroidMicDatePicker = this.openAndroidMicDatePicker.bind(this);
@@ -68,7 +67,7 @@ class MicInfo extends Component {
 
     const {style, viewMode} = this.props;
     return viewMode && viewMode === 'confirm' ? (
-      <KeyboardAwareScrollView ref={ref => {this.scroll = ref}} extraHeight={260}>
+      <KeyboardAwareScrollView ref={ref => {this.scroll = ref}} extraHeight={200}>
       <View
         style={[styles.container, style]}>
         {this.renderLeftContent()}
@@ -174,7 +173,6 @@ class MicInfo extends Component {
                 onChangeText={(text) => onChangeMicInfo ? onChangeMicInfo('venueName', text) : null}
                 returnKeyType={'next'}
                 onSubmitEditing= {() => this.onSelectVenueAddressRequest()}
-                onFocus={this._scrollToInput}
                 editable={editMode} />
             </View>
             {viewMode && viewMode === 'confirm' ? (
@@ -272,8 +270,8 @@ class MicInfo extends Component {
                 value={mic && mic.timeOnStage ? mic.timeOnStage+'' : ''}
                 onChangeText={(text) => onChangeMicInfo ? onChangeMicInfo('timeOnStage', text) : null}
                 returnKeyType={'next'}
+                keyboardType = {'numeric'}
                 onSubmitEditing= {() => Keyboard.dismiss()}
-                onFocus={this._scrollToInput}
                 editable={editMode} />
             </View>
             <TouchableOpacity style={GlobalStyles.listItemContainer}
@@ -314,8 +312,8 @@ class MicInfo extends Component {
                   value={mic && mic.hostPhone ? mic.hostPhone : ''}
                   onChangeText={(text) => onChangeMicInfo ? onChangeMicInfo('hostPhone', text) : null}
                   returnKeyType={'next'}
+                  keyboardType = {'numeric'}
                   onSubmitEditing= {() => this._parkingDetailsInput.focus()}
-                  onFocus={this._scrollToInput}
                   editable={editMode} 
                   selectable={true} />
               </View>
@@ -344,7 +342,6 @@ class MicInfo extends Component {
                 returnKeyType={'next'}
                 multiline={true}
                 onSubmitEditing= {() => this._otherInfoInput.focus()}
-                onFocus={this._scrollToInput}
                 placeholder={editMode ? 'Optional' : ''}/>
                 :(
                 <Text
@@ -365,7 +362,6 @@ class MicInfo extends Component {
                 editable={editMode}
                 returnKeyType={'next'}
                 onSubmitEditing= {() => Keyboard.dismiss()}
-                onFocus={this._scrollToInput}
                 placeholder={editMode ? 'Optional' : ''}/>
                 : (
               <Text
@@ -621,11 +617,6 @@ class MicInfo extends Component {
       marginLeft: index == 0 ? 0 : 10,
       width: ((ViewUtils.WINDOW_WIDTH * 0.6) - (itemsCount * 10) - 10)/ itemsCount
     }
-  }
-
-  _scrollToInput (event) {
-
-    this.scroll.scrollToFocusedInput(ReactNative.findNodeHandle(event.target));
   }
 
 }

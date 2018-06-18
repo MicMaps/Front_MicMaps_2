@@ -58,8 +58,8 @@ class WhenMicForm extends Component {
     const {formData, onChangeFieldValue, onRepeatFrequencyChangeRequest} = this.props;
     const {micDate, startTime, endTime, repeatTimes, repeatFrequency, micDays} = formData;
 
-    //console.log("WHEN_MIC_FORM_STATE", this.state);
-    //console.log("WHEN_MIC_FORM_PROPS", this.props);
+    console.log("WHEN_MIC_FORM_STATE", this.state);
+    console.log("WHEN_MIC_FORM_PROPS", this.props);
     return (
       <View style={styles.container}>
         <PageHeader
@@ -145,7 +145,8 @@ class WhenMicForm extends Component {
                     onDateChange={(dt) => this.onSelectDate(dt)}
                     selectedDayColor={ViewUtils.COLOR_THEME_GREEN}
                     selectedDayTextColor={'#FFF'}
-                    initialDate={date}/>
+                    initialDate={date}
+                    minDate={new Date()}/>
                   </View>
               ) : null}
             </View>

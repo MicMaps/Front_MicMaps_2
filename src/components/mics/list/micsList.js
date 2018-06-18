@@ -16,7 +16,7 @@ function MicsList({mics, onSelectMic, deleteMode, editMode, onDeleteMicRequest, 
   return (
       <View
         style={[styles.container, style]}>
-        <ScrollView>
+        <ScrollView contentContainerStyle={{ paddingBottom: 75 }}>
         {shortedList.map((mic, idx) => {
 
           return (

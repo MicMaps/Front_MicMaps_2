@@ -65,6 +65,9 @@ class DateTimeSelectInput extends Component {
     try {
 
       if(mode === 'time') {
+        options.hour = Number.parseInt(Moment(date).format('HH'));
+        options.minute = Number.parseInt(Moment(date).format('mm'));
+        console.log(options)
         TimePickerAndroid.open(options).then((res) => {
           if (res.action !== TimePickerAndroid.dismissedAction) {
             let time = Moment().set({'hour': res.hour, 'minute': res.minute}).toDate();

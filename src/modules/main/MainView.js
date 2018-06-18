@@ -249,9 +249,12 @@ class MainView extends Component {
   onPressMarker(locations) {
     let mics = locations ? Object.values(locations) : [];
     //console.log('MICS_LIST', mics)
-    if(mics.length > 1)
+    if(mics.length > 1) {
       this.setState({viewMode: 'list', micsList: mics});
-    else this.setState({viewMode: 'map', MicsList: mics});
+    }
+    else {
+      this.setState({viewMode: 'map', micsList: []});
+    }
   }
 
   onRegionChange(newRegion) {
@@ -305,14 +308,14 @@ class MainView extends Component {
     options.dis = Math.max((0.621371 * verticalDistance), 100); //km to miles
     console.log('MICS_OPTIONS', options);
     this.props.dispatch(MicActions.getMics(options, () => {
-      this.setState({loading:false})
+      this.setState({loading:false, micsList:[]})
     }));
   }
 
   toggleViewMode() {
     const viewMode = this.state.viewMode === 'map' ? 'list' : 'map' ;
     GATracker.trackScreenView('Mics ' + (viewMode == 'map'?'Map':'List') +  ' Main View Screen')
-    this.setState({viewMode: viewMode, initialRegion: this.currentRegion?this.currentRegion:this.state.initialRegion});
+    this.setState({viewMode: viewMode, micsList:[], initialRegion: this.currentRegion?this.currentRegion:this.state.initialRegion});
   }
 
   updateCurrentLocation() {

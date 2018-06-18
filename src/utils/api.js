@@ -50,8 +50,8 @@ export async function put(path, body, suppressRedBox) {
  * @param {Boolean} suppressRedBox If true, no warning is shown on failed request
  * @returns {Promise}  of response body
  */
-export async function del(path, suppressRedBox) {
-  return bodyOf(request('delete', path, null, suppressRedBox));
+export async function del(path, body, suppressRedBox) {
+  return bodyOf(request('delete', path, body, suppressRedBox));
 }
 
 /**

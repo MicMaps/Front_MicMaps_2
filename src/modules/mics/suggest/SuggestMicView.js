@@ -150,7 +150,7 @@ class SuggestMicView extends Component {
   isDataValid() {
 
     const {name, venueName, venueAddress, parkingDetails, timeOnStage, otherInfo, currentForm, micDate, micType, micTypeCustom, signupBy, signupType, noOfSignupSlots, startTime, endTime, repeatTimes, repeatFrequency, hostName, hostPhone, hostEmail, free, cost, costType, costCustom, location, micDays } = this.state;
-    if(currentForm === 'aboutMic') return name && venueName && venueAddress && location && timeOnStage && micType && (micType === 'custom' ? micTypeCustom : true) && (micType === 'signup' ? signupType === 'onsite'? signupBy : noOfSignupSlots && noOfSignupSlots > 0 : true) && costType && (costType === 'paid' ? cost : true) && (costType === 'costCustom' ? costCustom : true);
+    if(currentForm === 'aboutMic') return name && venueName && venueAddress && location && timeOnStage && timeOnStage > 0 && micType && (micType === 'custom' ? micTypeCustom : true) && (micType === 'signup' ? signupType === 'onsite'? signupBy : noOfSignupSlots && noOfSignupSlots > 0 : true) && costType && (costType === 'paid' ? cost : true) && (costType === 'costCustom' ? costCustom : true);
     else if(currentForm === 'hostInfo') return hostPhone && hostEmail && hostName && Utils.isEmailValid(hostEmail) && Utils.isPhoneNumberValid(hostPhone);
     else if(currentForm === 'whenMic') return micDate && startTime && endTime && repeatFrequency 
       && (repeatFrequency === 'custom' ? micDays.length > 0 : (repeatTimes > 0 )) ;

@@ -175,6 +175,10 @@ class ProfileView extends Component {
           imageStatus: response.data.status,
           profileImage: response.data.image
         });
+        console.log(response.data.status)
+        if(response.data && response.data.status === 'uploaded') {
+          this.saveUserProfile();
+        }
       }
     }))
   }

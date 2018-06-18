@@ -46,7 +46,7 @@ class MicSignupModal extends Component {
                     style={styles.pickerModal}
                     onRequestClose={() => { }}>
                     <View style={styles.container}>
-                        <KeyboardAwareScrollView ref={ref => { this.scroll = ref }} extraHeight={220} style={{ backgroundColor: '#FFF' }}>
+                        <KeyboardAwareScrollView ref={ref => { this.scroll = ref }} style={{ backgroundColor: '#FFF' }}>
                             <View style={styles.pickerContainer}>
                                 <Text style={styles.headerText}>Sign up for Slot no {slot} on {date}</Text>
                                 <CustomTextInput
@@ -104,7 +104,7 @@ class MicSignupModal extends Component {
     }
 
     _scrollToInput(event) {
-        this.scroll.scrollToFocusedInput(ReactNative.findNodeHandle(event.target));
+       // this.scroll.scrollToFocusedInput(ReactNative.findNodeHandle(event.target));
     }
     submitSignupData() {
         const { name, email, phone } = this.state;

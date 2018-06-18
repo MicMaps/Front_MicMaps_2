@@ -114,15 +114,10 @@ class ConfirmMicView extends Component {
         {micImage && imageStatus !== 'uploading' ? (
           <Image style={{width: 68, height: 68}} source={{uri: micImage}} />
         ) : null }
-        {!micImage && imageStatus !== 'uploading' ? (
+        {!micImage ? (
           <Image style={{width: 68, height: 68}} source={MicLogo} />
         ) : null }
       </View>
-      {(imageStatus === 'uploading') ? (
-        <View style={styles.imageUploadIndicatorWrapper}>
-          <ActivityIndicator animating={true} style={styles.imageUploadIndicator} size={'large'} color={'#FFF'}/>
-        </View>
-      ) : null }
       {(imageStatus !== 'uploading') ? (
         <View style={styles.micImageEditIcon}>
           <MaterialIcon style={{fontSize: 16, color: ViewUtils.COLOR_THEME_BLUE}} name='create'/>

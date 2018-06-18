@@ -23,9 +23,6 @@ class AboutMicForm extends Component {
     super(props);
     this.state = {
     }
-
-    this._scrollToInput = this._scrollToInput.bind(this);
-
   }
 
   componentDidMount() {
@@ -41,7 +38,7 @@ class AboutMicForm extends Component {
         <PageHeader
           title={'ADD A MIC'}
           subtitle={'About mic host'} />
-          <KeyboardAwareScrollView ref={ref => {this.scroll = ref}} extraHeight={220}>
+          <KeyboardAwareScrollView ref={ref => {this.scroll = ref}}>
             <View style={styles.contentContainer}>
               <CustomTextInput
                   label={"Host Name *"}
@@ -50,8 +47,7 @@ class AboutMicForm extends Component {
                     value: hostName,
                     onChangeText: (text) => onChangeFieldValue ? onChangeFieldValue('hostName', text) : '',
                     returnKeyType: 'next',
-                    onSubmitEditing: () => this._hostPhoneInput.focus(),
-                    onFocus: this._scrollToInput
+                    onSubmitEditing: () => this._hostPhoneInput.focus()
                   }}
                   validationStatus={!!hostName}
                   validationMessage={!hostName ? 'Please select mic host name' : ''} />
@@ -63,8 +59,7 @@ class AboutMicForm extends Component {
                   onChangeText: (text) => onChangeFieldValue ? onChangeFieldValue('hostPhone', text) : '',
                   keyboardType: 'phone-pad',
                   returnKeyType: 'next',
-                  onSubmitEditing: () => this._hostEmailInput.focus(),
-                  onFocus: this._scrollToInput
+                  onSubmitEditing: () => this._hostEmailInput.focus()
                 }}
                 validationStatus={Utils.isPhoneNumberValid(hostPhone)}
                 validationMessage={!Utils.isPhoneNumberValid(hostPhone) ? 'Please enter valid phone number' : ''} />
@@ -84,8 +79,7 @@ class AboutMicForm extends Component {
                   onChangeText: (text) => onChangeFieldValue ? onChangeFieldValue('hostEmail', text) : '',
                   keyboardType: 'email-address',
                   returnKeyType: 'next',
-                  onSubmitEditing: () => Keyboard.dismiss(),
-                  onFocus: this._scrollToInput
+                  onSubmitEditing: () => Keyboard.dismiss()
                 }}
                 validationStatus={Utils.isEmailValid(hostEmail)}
                 validationMessage={!Utils.isEmailValid(hostEmail) ? 'Please enter valid email' : ''} />
@@ -101,10 +95,6 @@ class AboutMicForm extends Component {
             </KeyboardAwareScrollView>
       </View>
     );
-  }
-
-  _scrollToInput (event) {
-    this.scroll.scrollToFocusedInput(ReactNative.findNodeHandle(event.target));
   }
 
 }
