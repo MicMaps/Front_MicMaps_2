@@ -3,6 +3,7 @@ import {
   Text,
   View,
   Image,
+  Alert,
   TouchableOpacity,
   StyleSheet
 } from 'react-native';
@@ -18,6 +19,7 @@ import ThumbsDownImage from '../../../../images/thumbsDown.png';
 import AlertBar from '../../../components/alert-bar/alertBar';
 import {NavigationActions} from 'react-navigation';
 import GATracker from '../../../services/ga';
+
 
 class MicsInfoView extends Component {
   static displayName = 'MicsInfoView';
@@ -46,9 +48,11 @@ class MicsInfoView extends Component {
       this.setState({loading: true})
       this.props.dispatch(MicActions.getMicDetails(micId, (result) => {
         this.setState({loading: false})
+        if (result.status && result.data && result.data.name) {
+          GATracker.trackScreenView(`Mic - ${result.data.name} Detail View Screen`);
+        }
       }));
     }
-    GATracker.trackScreenView('Mics Detail View Screen')
   }
 
   render() {

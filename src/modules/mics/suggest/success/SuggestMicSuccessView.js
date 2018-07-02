@@ -14,6 +14,7 @@ import GlobalStyles from '../../../../styles/globalStyles';
 import IconClose from '../../../.././../images/closeIcon2x.png';
 import IconSuccess from '../../../../../images/iconSuccess2x.png';
 import GATracker from '../../../../services/ga';
+import {getConfiguration} from '../../../../utils/configuration';
 
 class SuggestMicSuccessView extends Component {
   static displayName = 'SuggestMicSuccessView';
@@ -69,18 +70,20 @@ class SuggestMicSuccessView extends Component {
 
   shareMic() {
 
-    const {micInfo} = this.props;
+    const {micInfo} = this.props.navigation.state.params;
 
     let message = 'MicMaps is a mobile app that helps comedians find open mics near them';
     if(micInfo) {
       let startTime = Utils.turnMilitaryToDate(micInfo.startTime);
       let endTime = Utils.turnMilitaryToDate(micInfo.endTime);
-      message = `${micInfo.name}\nVenue Name: ${micInfo.venueName}\nVenue Address: ${micInfo.venueAddress}`;
-      message += `\nTimings: ${Moment(startTime).format('hh:mm a')} - ${Moment(endTime).format('hh:mm a')}`;
+      message = `Mic name - ${micInfo.name} \nVenue Name: ${micInfo.venueName} \nVenue Address: ${micInfo.venueAddress}`;
+      message += `\n Timings: ${Moment(startTime).format('hh:mm a')} - ${Moment(endTime).format('hh:mm a')}`;
     }
 
-    let shareUrl = 'http://www.micmaps.me' ;
-    if(micInfo && micInfo._id) shareUrl = `http://138.68.11.221/api/mic-static?id=${micInfo._id}`;
+    let shareUrl = 'http://www.micmaps.com' ;
+    const API_ROOT = getConfiguration('API_ROOT');
+    if(micInfo && micInfo._id) shareUrl = `${API_ROOT}/mic-static?id=${micInfo._id}`;
+    message += `\n ${shareUrl}`
 
     Share.share(
       {

@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import Moment from 'moment';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import RNGooglePlaces from 'react-native-google-places';
+import {getConfiguration} from '../../../utils/configuration';
 import {
   Text,
   View,
@@ -13,7 +14,8 @@ import {
   TouchableOpacity,
   Platform,
   DatePickerAndroid,
-  TimePickerAndroid
+  TimePickerAndroid,
+  Alert
 } from 'react-native';
 import ReactNative from 'react-native';
 import DatePicker from '../../../components/modals/date-picker/datePicker';
@@ -26,6 +28,8 @@ import * as Utils from '../../../utils/utils';
 import * as Cloudinary from '../../../services/cloudinary';
 import EvilIcon from 'react-native-vector-icons/EvilIcons';
 import NavigationService from '../../../services/navigationService';
+import Ionicon from 'react-native-vector-icons/Ionicons';
+import {ShareDialog} from 'react-native-fbsdk';
 
 class MicInfo extends Component {
 
@@ -61,6 +65,7 @@ class MicInfo extends Component {
     this.openAndroidMicDatePicker = this.openAndroidMicDatePicker.bind(this);
     this.openAndroidMicStartTimePicker = this.openAndroidMicStartTimePicker.bind(this);
     this.openAndroidMicEndTimePicker = this.openAndroidMicEndTimePicker.bind(this);
+    this.shareOnFB = this.shareOnFB.bind(this);
   }
 
   render() {
@@ -536,12 +541,20 @@ class MicInfo extends Component {
   renderLeftBottomContent() {
 
     const {mic, viewMode} = this.props;
+    console.log(mic)
     const likesCount = mic ? mic.noOfThumbsUp : 0;
     const dislikesCount = mic ? mic.noOfThumbsDown : 0;
     return (
       <View style={styles.leftBottomContainer}>
         {viewMode === 'details' ? (
           <View style={{flex:1, flexDirection: 'row', justifyContent: 'center'}}>
+          <TouchableOpacity
+              activeOpacity={0.5}
+              style={[GlobalStyles.buttonBlueOutlined, styles.fbButton, {marginBottom: 0}]}
+              onPress={() => {this.shareOnFB(mic._id)}}>
+              <Text style={[GlobalStyles.buttonBlueOutlinedText, {fontSize: 18}]}>
+              <Ionicon name="logo-facebook" style={{fontSize: 20}}></Ionicon>  SHARE </Text>
+            </TouchableOpacity>
             <View style={styles.dislikesCountContainer}>
               <View style={styles.likesDislikesContent}>
                 <Text style={styles.labelText}>Dislikes</Text>
@@ -554,6 +567,7 @@ class MicInfo extends Component {
                 <Text style={styles.likesCountText}>{likesCount}</Text>
               </View>
             </View>
+            
             
           </View>
         ) : null}
@@ -619,6 +633,33 @@ class MicInfo extends Component {
     }
   }
 
+  shareOnFB(micId) {
+    const API_ROOT = getConfiguration('API_ROOT');
+    const shareLinkContent = {
+      contentType: 'link',
+      contentUrl: API_ROOT + "/mic-static?id=" + micId
+    };
+    ShareDialog.canShow(shareLinkContent).then(
+      function(canShow) {
+        if (canShow) {
+          return ShareDialog.show(shareLinkContent);
+        }
+      }
+    ).then(
+      function(result) {
+        if (result.isCancelled) {
+          console.log(result)
+          Alert.alert('', 'Facebook Share was cancelled.', [{text: 'OK', onPress: () => console.log('OK Pressed')}]);
+        } else {
+          Alert.alert('', 'Facebook Share was successful.', [{text: 'OK', onPress: () => console.log('OK Pressed')}]);
+        }
+      },
+      function(error) {
+        Alert.alert('' , 'Facebook Share failed with error: ' + error.message, [{text: 'OK', onPress: () => console.log('OK Pressed')}]);
+      }
+    );
+  }
+
 }
 
 const styles = StyleSheet.create({
@@ -639,19 +680,19 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   leftTopContainer: {
-    flex: 0.55,
+    flex: 0.4,
     flexDirection: 'row',
     alignItems: 'flex-end',
   },
   leftBottomContainer: {
-    flex: 0.45,
+    flex: 0.6,
     position: 'relative',
     flexDirection: 'column',
     alignItems: 'center'
   },
   likesCountContainer: {
     position: 'absolute',
-    bottom: 48,
+    bottom: 90,
     width: 82,
     height: 82,
     borderRadius: 41,
@@ -664,7 +705,7 @@ const styles = StyleSheet.create({
   },
   dislikesCountContainer: {
     position: 'absolute',
-    bottom: 0,
+    bottom: 40,
     width: 60,
     height: 60,
     borderRadius: 30,
@@ -677,6 +718,17 @@ const styles = StyleSheet.create({
   },
   likesDislikesContent: {
     flexDirection: 'column'
+  },
+  fbButton: {
+    position: 'absolute',
+    bottom: 0,
+    borderRadius: 2,
+    borderWidth: 1,
+    borderColor: ViewUtils.COLOR_THEME_DARK_BLUE,
+    paddingHorizontal:10,
+    paddingVertical: 2,
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   rightContentContainer: {
     width: ViewUtils.WINDOW_WIDTH * 0.6 - 28 ,
