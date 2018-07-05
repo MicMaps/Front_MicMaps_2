@@ -36,9 +36,9 @@
       "node_modules/(?!(jest-)?react-native|react-navigation)"
     ]
   },
-  "rnpm":{
+  "rnpm": {
     "assets": [
-   "./assets/fonts/"
+      "./assets/fonts/"
     ]
   },
   "dependencies": {
