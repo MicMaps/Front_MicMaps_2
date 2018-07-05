@@ -32,23 +32,25 @@ const PNConfigure = () => {
    onNotification: function(notification) {
      // process the notification
      console.log(notification)
+     const data = notification.data?notification.data:notification
+
      if(notification.userInteraction) {
-         if(notification.data.type == "mic") {
-            NavigationService.navigate('MicInfo', {micId: notification.data.micId});
+         if(data.type == "mic") {
+            setTimeout(() => NavigationService.navigate('MicInfo', {micId: data.micId}))
+            ;
          }
      }
      if(AppState.currentState == 'active' && !notification.userInteraction) {
         Alert.alert(
             'MicMaps Notification',
-            notification.data.message,
+            data.message,
             [
               {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
-              {text: 'Show Mic', onPress: () => NavigationService.navigate('MicInfo', {micId: notification.data.micId, onBackPress: () => NavigationService.back()})}
+              {text: 'Show Mic', onPress: () => NavigationService.navigate('MicInfo', {micId: data.micId, onBackPress: () => NavigationService.back()})}
             ],
             {cancelable: false}
           )
      }
-
      // required on iOS only
      notification.finish(PushNotificationIOS.FetchResult.NoData);
    },
@@ -61,7 +63,8 @@ const PNConfigure = () => {
    },
 
    popInitialNotification: true,
-   requestPermissions: true
+   requestPermissions: true,
+   hasPoppedInitialNotification: false
 
  });
 };

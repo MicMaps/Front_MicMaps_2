@@ -4,9 +4,6 @@ import AppViewContainer from './src/modules/AppViewContainer';
 
 import React, {Component} from 'react';
 import {AppRegistry} from 'react-native';
-import PNConfigure from './src/services/pushNotificationService';
-
-PNConfigure();
 
 class MicMaps extends Component {
   render() {

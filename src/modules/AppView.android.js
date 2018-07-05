@@ -7,6 +7,8 @@ import * as snapshotUtil from '../utils/snapshot';
 import * as SessionStateActions from '../modules/session/SessionState';
 import store from '../redux/store';
 import DeveloperMenu from '../components/DeveloperMenu';
+
+import PNConfigure from '../services/pushNotificationService';
 import {
   setCustomText,
   setCustomTextInput
@@ -22,6 +24,7 @@ class AppView extends Component {
   };
 
   componentDidMount() {
+    PNConfigure();
     console.log("Component Mounted...")
     PushNotification.appStart();
     snapshotUtil.resetSnapshot()
