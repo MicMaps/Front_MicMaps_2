@@ -74,3 +74,9 @@ export function getRememberMeStatus() {
 export function setRememberMeStatus(isRememberMe) {
   return setUserRememberMeStatus(isRememberMe);
 }
+
+export function updateDeviceToken(oldToken, newToken, deviceType) {
+  const data = {oldToken, newToken, deviceType}
+  console.log(data)
+  return put('/users/devicetoken', data)
+}

@@ -11,6 +11,7 @@ import {
   setCustomTextInput
 } from 'react-native-global-props';
 import * as GlobalStyles from '../styles/globalStyles';
+import PNConfigure from '../services/pushNotificationService';
 
 class AppView extends Component {
   static displayName = 'AppView';
@@ -21,6 +22,7 @@ class AppView extends Component {
   };
 
   componentDidMount() {
+    PNConfigure();
     snapshotUtil.resetSnapshot()
       .then(snapshot => {
         const {dispatch} = this.props;
