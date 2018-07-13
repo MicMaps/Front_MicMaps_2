@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import PushNotification from 'react-native-push-notification-ce';
 import PropTypes from 'prop-types';
 import {View, StyleSheet, StatusBar, ActivityIndicator} from 'react-native';
 import NavigatorView from './navigator/NavigatorView';
@@ -23,6 +24,7 @@ class AppView extends Component {
 
   componentDidMount() {
     PNConfigure();
+    PushNotification.appStart();
     snapshotUtil.resetSnapshot()
       .then(snapshot => {
         const {dispatch} = this.props;
