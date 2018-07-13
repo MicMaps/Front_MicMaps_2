@@ -155,6 +155,12 @@ class MicInfo extends Component {
 
     let repeatFrequency = mic && mic.repeatFrequency ? mic.repeatFrequency : null;
     let repeatTimes = mic && mic.repeatTimes ? mic.repeatTimes : null;
+    const futureMicDays = mic && mic.days? mic.days.filter((day, i) => {
+      const showDay = Moment(day).diff(Moment(), 'days') > -1
+      if(showDay) {
+        return day;
+      }
+    }):[]
 
     return (
       <View style={styles.rightContentContainer}>
@@ -208,15 +214,18 @@ class MicInfo extends Component {
             {!isUserMic && !micDate? (
                 <View style={[GlobalStyles.listItemContainerAutoGrow]}>
                   <Text style={GlobalStyles.listItemLabel}>{'Event Days'}</Text>
-                    {mic && mic.days && mic.days ? (
-                      mic.days.map((day, i) => {
-                        return (
+                    {mic && futureMicDays && futureMicDays.length? (
+                      futureMicDays.map((day, i) => {
+                        return  (
                           <Text style={GlobalStyles.listItemContent} ellipsizeMode={'tail'} key={i} numberOfLines={1}>
                             {Moment(day).format('dddd, MMM DD, YYYY')}
                           </Text>
                         )
                       })
-                    ) : null}
+                    ) : <Text style={GlobalStyles.listItemContent} ellipsizeMode={'tail'} numberOfLines = {1}>
+                    {'This mic is over.'}
+                    </Text>
+                  }
                 </View>
             ) : null}
             {isUserMic && repeatFrequency && repeatFrequency !== 'custom' ? (
@@ -237,17 +246,20 @@ class MicInfo extends Component {
               </View>
             ) : null}
             {isUserMic && viewMode === 'details' && repeatFrequency && repeatFrequency === 'custom' ? (
-              <View style={[GlobalStyles.listItemContainer, {height: (mic && mic.days ? 19 * mic.days.length : 19)}]}>
+              <View style={[GlobalStyles.listItemContainerAutoGrow, {minHeight:30}]}>
                 <Text style={GlobalStyles.listItemLabel}>{'Event Days'}</Text>
-                {mic && mic.days && mic.days ? (
-                  mic.days.map(day => {
+                {mic && futureMicDays  && futureMicDays.length ? (
+                  futureMicDays.map(day => {
                     return (
                       <Text style={GlobalStyles.listItemContent} ellipsizeMode={'tail'} key={`day ${day}`} numberOfLines={1}>
                         {Moment(day).format('dddd, MMM DD, YYYY')}
                       </Text>
                     )
                   })
-                ) : null}
+                ) : <Text style={GlobalStyles.listItemContent} ellipsizeMode={'tail'} numberOfLines = {1}>
+                {'This mic is over.'}
+                </Text>
+              }
 
               </View>
             ) : null}

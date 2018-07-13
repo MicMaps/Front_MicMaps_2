@@ -12,7 +12,6 @@ import EvilIcon from 'react-native-vector-icons/EvilIcons';
 import * as ViewUtils from '../../../utils/viewUtils';
 
 function Loader({visibility}) {
-  console.log(visibility)
   return (
     visibility?
         <View style={styles.container}>
