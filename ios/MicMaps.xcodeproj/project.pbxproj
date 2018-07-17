@@ -2441,8 +2441,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.micmap.MicMaps;
 				PRODUCT_NAME = MicMaps;
-				PROVISIONING_PROFILE = "77dcccf4-cba4-4481-a747-0da1fa237c5c";
-				PROVISIONING_PROFILE_SPECIFIER = MicMap_Prod_Cmm;
+				PROVISIONING_PROFILE = "32ab0139-669d-4001-8d35-e08b7fd27410";
+				PROVISIONING_PROFILE_SPECIFIER = MicMap_Prod2_Cmm;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;

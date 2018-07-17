@@ -24,6 +24,7 @@ class SuggestMicSuccessView extends Component {
     this.state = {}
 
     this.shareMic = this.shareMic.bind(this);
+    this.getNextDayToShare = this.getNextDayToShare.bind(this);
   }
 
   componentDidMount() {
@@ -82,7 +83,8 @@ class SuggestMicSuccessView extends Component {
 
     let shareUrl = 'http://www.micmaps.com' ;
     const API_ROOT = getConfiguration('API_ROOT');
-    if(micInfo && micInfo._id) shareUrl = `${API_ROOT}/mic-static?id=${micInfo._id}`;
+    const micDate = this.getNextDayToShare(micInfo);
+    if(micInfo && micInfo._id) shareUrl = `${API_ROOT}/mic-static/${micInfo._id}/${micDate}`;
     message += `\n ${shareUrl}`
 
     Share.share(
@@ -95,6 +97,19 @@ class SuggestMicSuccessView extends Component {
         dialogTitle: "Share Mic"
       }
     );
+  }
+
+  getNextDayToShare(mic) {
+    const micDays = mic.days;
+    if(micDays && micDays.length) {
+      const nextDay = micDays.find((day) => {
+        return Moment(day).diff(Moment(), 'days') >= 0
+      })
+      if(nextDay) {
+        return Moment(nextDay).format('MM-DD-YYYY')
+      }
+    }
+    return Moment().format('MM-DD-YYYY')
   }
 
   // FacebookService.shareLinkWithShareDialog({
