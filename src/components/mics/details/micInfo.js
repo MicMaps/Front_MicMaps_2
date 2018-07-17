@@ -674,7 +674,7 @@ class MicInfo extends Component {
       return Moment(micDate).format('MM-DD-YYYY')
     }
     if(micDays && micDays.length) {
-      const nextDay = days.find((day) => {
+      const nextDay = micDays.find((day) => {
         return Moment(day).diff(Moment(), 'days') >= 0
       })
       if(nextDay) {

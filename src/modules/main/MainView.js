@@ -17,6 +17,7 @@ import Moment from 'moment';
 import * as Utils from '../../utils/utils';
 import * as ViewUtils from '../../utils/viewUtils';
 import * as MicActions from '../../redux/mics/MicActions';
+import * as UserActions from '../../redux/user/UserActions';
 import * as LocationUtils from '../../utils/location';
 import Ionicon from 'react-native-vector-icons/Ionicons';
 import RadarIcon from '../../../images/radarIcon2x.png';
@@ -187,7 +188,7 @@ class MainView extends Component {
             <View style={[styles.bottomButtonContainer, {flex:1}]}></View>
           )}
           </View>
-
+        <Loader visibility={this.state.loading} />  
         {this.renderError()}
       </View>
     );
@@ -237,11 +238,13 @@ class MainView extends Component {
   onMicsSearchRequest() {
 
     const {searchQuery} = this.state;
-    this.setState({viewMode: 'list'}, () => {
+    this.setState({viewMode: 'list', loading: true}, () => {
         if (searchQuery) {
           this.props.dispatch(MicActions.searchMicsRequest(searchQuery, (response) => {
             if (response.status) {
-              this.setState({isSearchResultsLoaded: true});
+              this.setState({isSearchResultsLoaded: true, loading: false});
+            } else {
+              this.setState({isSearchResultsLoaded: false, loading: false});
             }
           }));
         }
@@ -295,7 +298,7 @@ class MainView extends Component {
   }
 
   loadMics() {
-    this.setState({loading:true})
+    this.setState({loading:false})
     let region = this.currentRegion;
     let dt = Moment(this.state.micsDate).toDate();
     let date = Moment([dt.getFullYear(), dt.getMonth(), dt.getDate()]);
@@ -351,7 +354,12 @@ class MainView extends Component {
           latitudeDelta: 0.15,
           longitudeDelta: 0.15
         }
-
+        let user = {
+          lastLocation: [location.longitude, location.latitude]
+        }
+        this.props.dispatch(UserActions.updateUserProfileRequest(user, (response) => {
+          console.log("User Location Updated..")
+        }));
         if(location) {
           console.log('CURRENT_LOCATION', location)
           this.setState({
