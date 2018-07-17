@@ -4,4 +4,5 @@
 
     <string name="facebook_app_id">159196017971328</string>
     <string name="google_map_key">AIzaSyABuXCTqrSSWHxrdu7WjhBueTMC2P77R7Y</string>
+    <string name="mics_view_filter">MicsViewFilter</string>
 </resources>

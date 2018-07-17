@@ -123,6 +123,7 @@ class MainView extends Component {
           onLeftButtonPress={() => this.toggleViewMode()}
           onRightButtonPress={() => this.props.navigation.navigate({routeName: 'Profile'})}
           navigation = {this.props.navigation} />    
+       
         {viewMode === 'map' ? (
           <MicMaps
             initialRegion={initialRegion}
@@ -137,7 +138,10 @@ class MainView extends Component {
           <MicsList
             mics={micsToList}
             style={styles.micsListContainer}
-            onSelectMic={this.showMicInfo} />
+            onSelectMic={this.showMicInfo} 
+            isSearchResult = {isSearchResultsLoaded}
+            searchQuery = {searchQuery}
+            />
         ) : (
           <View style={styles.noMicsContainer}>
             <Text style={styles.noMicsText}>No mics found!</Text>
@@ -145,9 +149,13 @@ class MainView extends Component {
         ) : null}
 
         {viewMode === 'map' ? this.renderSearchInput() : null}
+        {!isSearchResultsLoaded?
         <View style={styles.topBar}>
           <DayPicker onSelectDay={this.onSelectMicsDay} selectedDay={micsDate}/>
         </View>
+        :null
+        }
+        
           <View style={styles.bottomBar}>
           {viewMode === 'map' ? (
               <View
@@ -270,8 +278,16 @@ class MainView extends Component {
 
   showMicInfo(micId) {
 
-    const {micsDate, viewMode} = this.state;
-    this.props.navigation.navigate({routeName: 'MicInfo', params: {micId, micFilterDate: micsDate, viewMode: viewMode, onBackPress: () => this.props.navigation.dispatch(NavigationActions.back())}});
+    const {micsDate, viewMode, isSearchResultsLoaded} = this.state;
+    let params = {
+      micId, 
+      viewMode: viewMode, 
+      onBackPress: () => this.props.navigation.dispatch(NavigationActions.back())
+    }
+    if(!isSearchResultsLoaded) {
+      params['micFilterDate'] = micsDate
+    }
+    this.props.navigation.navigate({routeName: 'MicInfo', params: params});
   }
 
   onSelectMicsDay(date) {
@@ -315,7 +331,7 @@ class MainView extends Component {
   toggleViewMode() {
     const viewMode = this.state.viewMode === 'map' ? 'list' : 'map' ;
     GATracker.trackScreenView('Mics ' + (viewMode == 'map'?'Map':'List') +  ' Main View Screen')
-    this.setState({viewMode: viewMode, micsList:[], initialRegion: this.currentRegion?this.currentRegion:this.state.initialRegion});
+    this.setState({viewMode: viewMode, micsList:[], isSearchResultsLoaded:false, searchQuery:'', initialRegion: this.currentRegion?this.currentRegion:this.state.initialRegion});
   }
 
   updateCurrentLocation() {

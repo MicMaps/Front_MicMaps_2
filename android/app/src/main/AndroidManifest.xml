@@ -32,6 +32,16 @@
             <action android:name="android.intent.action.MAIN" />
             <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter>
+          <intent-filter android:label="@string/mics_view_filter">
+              <action android:name="android.intent.action.VIEW" />
+              <category android:name="android.intent.category.DEFAULT" />
+              <category android:name="android.intent.category.BROWSABLE" />
+              <!-- Accepts URIs that begin with "example://gizmos” -->
+              <data android:scheme="micmaps"
+                  android:host="mic"
+                  android:pathPrefix="/"
+                  />
+          </intent-filter>
       </activity>
       <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
 

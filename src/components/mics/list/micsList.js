@@ -4,24 +4,30 @@ import {
   View,
   StyleSheet,
   ScrollView,
+  Text,
   TouchableOpacity
 } from 'react-native';
 import * as ViewUtils from '../../../utils/viewUtils';
 import MicInfo from '../details/micInfo';
 
-function MicsList({mics, onSelectMic, deleteMode, editMode, onDeleteMicRequest, onEditMicRequest, style, isUserMic}) {
+function MicsList({mics, onSelectMic, deleteMode, editMode, onDeleteMicRequest, onEditMicRequest, style, isUserMic, isSearchResult, searchQuery}) {
 
   let shortedList = mics ? shortMicsByTime(mics) : [];
-
+  
   return (
       <View
-        style={[styles.container, style]}>
+        style={[styles.container, style, isSearchResult?{marginTop:0}:{}]}>
+        {searchQuery && isSearchResult?
+          <View style={{alignItems: 'center', marginBottom: 10, marginTop: 10}}>
+            <Text style={styles.searchResultText}>Search Results for '{searchQuery}'</Text>
+          </View>
+          :null
+        }
         <ScrollView contentContainerStyle={{ paddingBottom: 75 }}>
         {shortedList.map((mic, idx) => {
-
           return (
             <TouchableOpacity
-              style={styles.micItemContainer}
+              style={[styles.micItemContainer, isSearchResult?{height: 200}:{}, idx === 0? styles.firstMicItem:{}]}
               key={idx}
               onPress={() => onSelectMic ? onSelectMic(mic._id) : null}>
               <MicInfo viewMode={'list'}
@@ -29,7 +35,8 @@ function MicsList({mics, onSelectMic, deleteMode, editMode, onDeleteMicRequest, 
                 editMode={!!editMode}
                 deleteMode={deleteMode}
                 onEditMicRequest={onEditMicRequest}
-                onDeleteMicRequest={onDeleteMicRequest} />
+                onDeleteMicRequest={onDeleteMicRequest}
+                isSearchResult = {isSearchResult} />
             </TouchableOpacity>
           )
         })}
@@ -67,6 +74,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderBottomWidth: 2,
     borderBottomColor: ViewUtils.COLOR_THEME_GREEN
+  }, 
+  firstMicItem: {
+    borderTopWidth: 2,
+    borderTopColor: ViewUtils.COLOR_THEME_GREEN
+  },
+  searchResultText: {
+    fontSize: 20,
+    color: ViewUtils.COLOR_THEME_BLUE
   }
 });
 
