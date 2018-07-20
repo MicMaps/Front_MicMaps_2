@@ -29,6 +29,7 @@ import Loader from '../../components/modals/loader/loader';
 import AlertBar from '../../components/alert-bar/alertBar';
 import {NavigationActions} from 'react-navigation';
 import GATracker from '../../services/ga';
+import NavigationService from '../../services/navigationService';
 
 class MainView extends Component {
   static displayName = 'MainView';
@@ -238,6 +239,10 @@ class MainView extends Component {
   onMicsSearchRequest() {
 
     const {searchQuery} = this.state;
+    if (!searchQuery || searchQuery.length === 0) {
+      Alert.alert('', 'Please enter a keyword to search.');
+      return;
+    }
     this.setState({viewMode: 'list', loading: true}, () => {
         if (searchQuery) {
           this.props.dispatch(MicActions.searchMicsRequest(searchQuery, (response) => {
@@ -285,12 +290,12 @@ class MainView extends Component {
     let params = {
       micId, 
       viewMode: viewMode, 
-      onBackPress: () => this.props.navigation.dispatch(NavigationActions.back())
+      onBackPress: () => NavigationService.back()
     }
     if(!isSearchResultsLoaded) {
-      params['micFilterDate'] = micsDate
+      params['micFilterDate'] = micsDate;
     }
-    this.props.navigation.navigate({routeName: 'MicInfo', params: params});
+    NavigationService.navigateWithDebounce('MicInfo', params);
   }
 
   onSelectMicsDay(date) {

@@ -185,8 +185,8 @@ class AboutMicForm extends Component {
                       returnKeyType: 'next',
                       onSubmitEditing: () => Keyboard.dismiss()
                     }}
-                    validationStatus={!!noOfSignupSlots && noOfSignupSlots > 0}
-                    validationMessage={!noOfSignupSlots || noOfSignupSlots < 1 ? 'Please enter a valid number of sign up slots.' : ''} 
+                    validationStatus={!!noOfSignupSlots && noOfSignupSlots > 0 && noOfSignupSlots <= 1000}
+                    validationMessage={!noOfSignupSlots || noOfSignupSlots < 1 || noOfSignupSlots > 1000 ? 'Please enter a valid number of sign up slots. Max - 1000.' : ''} 
                   />
               ) : null}
 
