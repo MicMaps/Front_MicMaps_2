@@ -65,6 +65,8 @@ import {
         return state.set('loading', false).set('mics', action.payload)
   
       case GET_MIC_DETAILS_SUCCESS:
+        console.log("aaaaa recent mic");
+        console.log(action.payload);
         return state.set('loading', false).set('recentMic', action.payload)
   
       case VOTE_MIC_REQUEST:

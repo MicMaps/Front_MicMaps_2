@@ -164,6 +164,8 @@ class MicInfo extends Component {
       }
     }) : []
 
+    const repeatForever = mic.repeatForever ? true : false;
+
     return (
       <View style={styles.rightContentContainer}>
         {!viewMode || viewMode === 'list' ? (
@@ -209,15 +211,20 @@ class MicInfo extends Component {
                   </View>
                 )}
               {!isUserMic && micDate ? (
-                <TouchableOpacity style={GlobalStyles.listItemContainer}
+                <TouchableOpacity style={GlobalStyles.listItemContainerAutoGrow}
                   onPress={() => editMode ? (Platform.OS === 'ios' ? this.setState({ eventDatePickerVisibility: true }) : this.openAndroidMicDatePicker(micDate)) : null}>
                   <Text style={GlobalStyles.listItemLabel}>{'Event Day'}</Text>
                   <Text style={GlobalStyles.listItemContent} ellipsizeMode={'tail'} numberOfLines={1}>
                     {micDate ? Moment(micDate).format('dddd, MMM DD, YYYY') : ''}
                   </Text>
+                  <Text style={GlobalStyles.listItemContent} ellipsizeMode={'tail'} numberOfLines={1}>
+                    {repeatFrequency === 'daily' && repeatForever && 'Repeats every day.'}
+                    {repeatFrequency === 'weekly' && repeatForever && `Repeats Weekly every ${Moment(mic.days[0]).format('dddd')}.`}
+                    {repeatFrequency === 'monthly' && repeatForever && `Repeats every month on ${Moment(mic.days[0]).format('Do')}.`}
+                  </Text>
                 </TouchableOpacity>
               ) : null}
-              {!isUserMic && !micDate ? (
+              {!isUserMic && !micDate && !repeatForever ? (
                 <View style={[GlobalStyles.listItemContainerAutoGrow]}>
                   <Text style={GlobalStyles.listItemLabel}>{'Event Days'}</Text>
                   {mic && futureMicDays && futureMicDays.length ? (
@@ -234,12 +241,27 @@ class MicInfo extends Component {
                   }
                 </View>
               ) : null}
+              {!isUserMic && !micDate && repeatForever ? (
+                <View style={[GlobalStyles.listItemContainerAutoGrow]}>
+                  <Text style={GlobalStyles.listItemLabel}>{'Event Days'}</Text>
+                    <Text style={GlobalStyles.listItemContent} ellipsizeMode={'tail'} numberOfLines={2}>
+                        {repeatFrequency === 'daily' && 'Repeats every day.'}
+                        {repeatFrequency === 'weekly' && `Repeats Weekly every ${Moment(mic.days[0]).format('dddd')}.`}
+                        {repeatFrequency === 'monthly' && `Repeats every month on ${Moment(mic.days[0]).format('Do')}.`}
+                    </Text>
+                </View>
+              ) : null}
               {isUserMic && repeatFrequency && repeatFrequency !== 'custom' ? (
-                <View style={GlobalStyles.listItemContainer}
+                <View style={GlobalStyles.listItemContainerAutoGrow}
                   onPress={() => editMode ? (Platform.OS === 'ios' ? this.setState({ eventDatePickerVisibility: true }) : this.openAndroidMicDatePicker(micDate)) : null}>
                   <Text style={GlobalStyles.listItemLabel}>{'Event Day'}</Text>
                   <Text style={GlobalStyles.listItemContent} ellipsizeMode={'tail'} numberOfLines={1}>
                     {mic && mic.days ? Moment(mic.days[0]).format('dddd, MMM DD, YYYY') : ''}
+                  </Text>
+                  <Text style={GlobalStyles.listItemContent} ellipsizeMode={'tail'} numberOfLines={1}>
+                    {repeatFrequency === 'daily' && repeatForever && 'Repeats every day.'}
+                    {repeatFrequency === 'weekly' && repeatForever && `Repeats Weekly every ${Moment(mic.days[0]).format('dddd')}.`}
+                    {repeatFrequency === 'monthly' && repeatForever && `Repeats every month on ${Moment(mic.days[0]).format('Do')}.`}
                   </Text>
                 </View>
               ) : null}
@@ -247,7 +269,7 @@ class MicInfo extends Component {
                 <View style={GlobalStyles.listItemContainer}>
                   <Text style={GlobalStyles.listItemLabel}>{'Repeat Fequency'}</Text>
                   <Text style={GlobalStyles.listItemContent} ellipsizeMode={'tail'} numberOfLines={1}>
-                    {`${repeatFrequency.charAt(0).toUpperCase() + repeatFrequency.slice(1)} - ${repeatTimes} Times`}
+                    {`${repeatFrequency.charAt(0).toUpperCase() + repeatFrequency.slice(1)} - ${repeatTimes <= 52 ? repeatTimes : 'Indefinite '} Times`}
                   </Text>
                 </View>
               ) : null}

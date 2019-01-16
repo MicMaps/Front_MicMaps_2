@@ -62,7 +62,7 @@ class MicsInfoView extends Component {
     const micInfo = Utils.toJS(this.props.recentMic);
     const micDate = this.props.navigation.state.params? this.props.navigation.state.params.micDate ? this.props.navigation.state.params.micDate : this.props.navigation.state.params.micFilterDate : null;
 
-    //console.log('MIC_INFO_VIEW_PROPS', this.props)
+    console.log('MIC_INFO_VIEW_PROPS', this.props)
 
     return (
       <View style={styles.container}>

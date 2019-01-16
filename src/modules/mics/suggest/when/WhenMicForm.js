@@ -58,8 +58,16 @@ class WhenMicForm extends Component {
     const {formData, onChangeFieldValue, onRepeatFrequencyChangeRequest} = this.props;
     const {micDate, startTime, endTime, repeatTimes, repeatFrequency, micDays} = formData;
 
-    console.log("WHEN_MIC_FORM_STATE", this.state);
-    console.log("WHEN_MIC_FORM_PROPS", this.props);
+    const formatRepeatsValue = (val) => {
+        if (repeatTimes && repeatTimes > 0 && repeatTimes <= 52) {
+            return `After ${val} ${ repeatFrequency === 'weekly' ? 'Weeks' : 'monthly' ? 'Months' : ''}`;
+        }
+        if (repeatTimes == 100000) {
+            return 'Never (Repeats Indefinitely)';
+        } 
+        return 'Select a value';
+    };
+
     return (
       <View style={styles.container}>
         <PageHeader
@@ -115,7 +123,7 @@ class WhenMicForm extends Component {
                   }}
                   numberArray={this.getRepeatTimeRange()}
                   dropDownStyle={{height: 150}}
-                  formatValue={(val) => repeatTimes && repeatTimes > 0 ? `After ${val} ${ repeatFrequency === 'weekly' ? 'Weeks' : 'monthly' ? 'Months' : ''}` : 'Select a value'} />
+                  formatValue={formatRepeatsValue} />
               ) : null }
               {repeatFrequency === 'custom' ? (
                 <View style={styles.dateSelectorContainer}>
@@ -159,16 +167,23 @@ class WhenMicForm extends Component {
 
     const repeatFrequency = this.props.formData.repeatFrequency;
     let repeatTimes = [{label: 'Select a value', value: -1}];
-    if(repeatFrequency === 'weekly') for(let i=1;i<=52;i++)  {
-      repeatTimes.push({label: i, value: i})
+    if (repeatFrequency === 'weekly') {
+            for (let i=1;i<=52;i++)  {
+            repeatTimes.push({label: i, value: i})
+        }
     }
-    else if(repeatFrequency === 'custom') for(let i=1;i<=24;i++)  {
-      repeatTimes.push({label: i, value: i})
+    else if (repeatFrequency === 'custom') {
+            for(let i=1;i<=24;i++)  {
+            repeatTimes.push({label: i, value: i})
+        }
     }
-    else for(let i=1;i<=12;i++)  {
-      repeatTimes.push({label: i, value: i})
+    else {
+        for(let i=1;i<=12;i++)  {
+        repeatTimes.push({label: i, value: i})
+        }
     }
 
+    repeatTimes.push({label: 'Never (Repeats Indefinitely)', value: 100000});
     return repeatTimes;
   }
 

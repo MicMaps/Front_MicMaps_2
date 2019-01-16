@@ -173,11 +173,18 @@ class ConfirmMicView extends Component {
     suggestMicData.days = micDays;
     if(repeatFrequency !== 'custom') {
       suggestMicData.days = [];
-      for(let i=0; i < suggestMicData.repeatTimes; i++) {
+      if(suggestMicData.repeatTimes <= 52) {
+        for(let i=0; i < suggestMicData.repeatTimes; i++) {
+            let dt = Moment([micDate.getFullYear(), micDate.getMonth(), micDate.getDate()]);
+            let nextDate = repeatFrequency === 'weekly' ? dt.add(i*7, 'days').format() : dt.add(i, 'months').format();
+            suggestMicData.days.push(nextDate);
+        }
+      } else {
         let dt = Moment([micDate.getFullYear(), micDate.getMonth(), micDate.getDate()]);
-        let nextDate = repeatFrequency === 'weekly' ? dt.add(i*7, 'days').format() : dt.add(i, 'months').format();
-        suggestMicData.days.push(nextDate);
+        suggestMicData.days.push(dt);
+        suggestMicData.repeatForever = true;
       }
+      
     }
 
 
