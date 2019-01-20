@@ -179,6 +179,7 @@ class ConfirmMicView extends Component {
             let nextDate = repeatFrequency === 'weekly' ? dt.add(i*7, 'days').format() : dt.add(i, 'months').format();
             suggestMicData.days.push(nextDate);
         }
+        suggestMicData.repeatForever = false;
       } else {
         let dt = Moment([micDate.getFullYear(), micDate.getMonth(), micDate.getDate()]);
         suggestMicData.days.push(dt);
