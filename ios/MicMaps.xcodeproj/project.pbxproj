@@ -2371,6 +2371,7 @@
 					"$(PROJECT_DIR)/Pods/GoogleMaps/Base/Frameworks",
 					"$(PROJECT_DIR)/Pods/GooglePlaces/Frameworks",
 					"$(PROJECT_DIR)/Pods/GooglePlacePicker/Frameworks",
+					"$(HOME)/Documents/FacebookSDK",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2382,7 +2383,7 @@
 					"$(SRCROOT)/../node_modules/react-native-google-places/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-maps/lib/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-google-analytics-bridge/ios/RCTGoogleAnalyticsBridge/**",
-					"~/Documents/FacebookSDK/**",
+					"$(HOME)/Documents/FacebookSDK/**",
 					"$(SRCROOT)/../node_modules/react-native-maps/lib/ios/AirMaps/**",
 					"$(SRCROOT)/../node_modules/react-native-global-props/ios/ReactNativeGlobalProps/**",
 				);
@@ -2417,6 +2418,7 @@
 					"$(PROJECT_DIR)/Pods/GoogleMaps/Base/Frameworks",
 					"$(PROJECT_DIR)/Pods/GooglePlaces/Frameworks",
 					"$(PROJECT_DIR)/Pods/GooglePlacePicker/Frameworks",
+					"$(HOME)/Documents/FacebookSDK",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2428,7 +2430,7 @@
 					"$(SRCROOT)/../node_modules/react-native-google-places/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-maps/lib/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-google-analytics-bridge/ios/RCTGoogleAnalyticsBridge/**",
-					"~/Documents/FacebookSDK/**",
+					"$(HOME)/Documents/FacebookSDK/**",
 					"$(SRCROOT)/../node_modules/react-native-maps/lib/ios/AirMaps/**",
 					"$(SRCROOT)/../node_modules/react-native-global-props/ios/ReactNativeGlobalProps/**",
 				);

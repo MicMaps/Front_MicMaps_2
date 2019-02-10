@@ -63,7 +63,7 @@ class WhenMicForm extends Component {
             return `After ${val} ${ repeatFrequency === 'weekly' ? 'Weeks' : 'monthly' ? 'Months' : ''}`;
         }
         if (repeatTimes == 100000) {
-            return 'Never (Repeats Indefinitely)';
+            return 'Repeats Indefinitely';
         } 
         return 'Select a value';
     };
@@ -167,6 +167,7 @@ class WhenMicForm extends Component {
 
     const repeatFrequency = this.props.formData.repeatFrequency;
     let repeatTimes = [{label: 'Select a value', value: -1}];
+    repeatTimes.push({label: 'Repeats Indefinitely', value: 100000});
     if (repeatFrequency === 'weekly') {
             for (let i=1;i<=52;i++)  {
             repeatTimes.push({label: i, value: i})
@@ -183,7 +184,6 @@ class WhenMicForm extends Component {
         }
     }
 
-    repeatTimes.push({label: 'Never (Repeats Indefinitely)', value: 100000});
     return repeatTimes;
   }
 
